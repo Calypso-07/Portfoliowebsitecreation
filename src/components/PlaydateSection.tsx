@@ -1,7 +1,8 @@
 import { motion } from "motion/react";
 import { Play, FileText, Download } from "lucide-react";
 import { useState } from "react";
-import crankAdventureThumbnail from "figma:asset/dd54056d5a207644e0d137e86e35bb2e0ab43f0d.png";
+
+const crankAdventureThumbnail = "https://drive.google.com/thumbnail?id=1anG4k-BFGPb5L9iv5zJG3K0_ZoJ0T5u8&sz=w2000"; // crank adventure
 
 export function PlaydateSection() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);

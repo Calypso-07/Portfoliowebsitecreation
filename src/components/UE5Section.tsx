@@ -1,8 +1,9 @@
 import { motion } from "motion/react";
 import { Play, ArrowRight } from "lucide-react";
 import { useState } from "react";
-import pizzaDeliveryCover from "figma:asset/5f6ce5bf8069fdbe9e81ee18c07542db4c01dde5.png";
-import wistarWagerCover from "figma:asset/5bc0328d10a672b0de34d9c6bcc7d6bfd05eb9a0.png";
+
+const pizzaDeliveryCover = "https://drive.google.com/thumbnail?id=1tsLykXWahGshQehcEniebXquvAoyeqIN&sz=w2000";
+const wistarWagerCover = "https://drive.google.com/thumbnail?id=1b17wpo4-2cIDmwlUlY5jhVKvSo6orJ6y&sz=w2000";
 
 interface UE5SectionProps {
   onNavigate: (page: string) => void;

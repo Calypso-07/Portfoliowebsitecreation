@@ -1,7 +1,8 @@
 import { motion } from "motion/react";
 import { Play, ExternalLink, Github } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import styleShifterImage from "figma:asset/bd1238d92158b59a009fdfb4cca6ee96e0eb66c9.png";
+
+const styleShifterImage = "https://drive.google.com/thumbnail?id=1qkdWRrBbMdkdGln41dtvsxWdURhKhFqQ&sz=w2000"; // style shifter
 
 export function SoftwareDevSection() {
   const projects = [

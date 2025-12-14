@@ -1,10 +1,11 @@
 import { motion } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import artworkImage from "figma:asset/f6936aff67be88eb26a3eef8e753264251e4981d.png";
-import luffyArtwork from "figma:asset/e6f8e6e429531b6855ed9776138757df731f38f6.png";
-import dekuArtwork from "figma:asset/61954f94c904d9be72732e8fe9c8f4f75756772f.png";
-import originalCharacter from "figma:asset/34632240eb8ead2c57fab80c466542f304c4e03e.png";
-import lemurArtwork from "figma:asset/0dd5c9e24fe35c731ba36e6a9beafa76db2d2679.png";
+
+const artworkImage = "https://drive.google.com/thumbnail?id=1Z2xEEax02kbXh2PDG5ru-zZalM3JlAdw&sz=w2000"; // king
+const luffyArtwork = "https://drive.google.com/thumbnail?id=1d6RRNN_R2i89gPyow8N9u6UqO1_9J6De&sz=w2000"; // luffy
+const dekuArtwork = "https://drive.google.com/thumbnail?id=1CDuhYVE4A45IiHTjBAmFUychvGEvLzUI&sz=w2000"; // deku
+const originalCharacter = "https://drive.google.com/thumbnail?id=1pUZ9xkcHAJ67SCeB9XdwHB58alipwFg3&sz=w2000"; // original
+const lemurArtwork = "https://drive.google.com/thumbnail?id=1kfQJBFHcwB2vlAOeYkOHVzWvYicbalze&sz=w2000"; // lemur
 
 export function ArtworkSection() {
   const artworks = [
