@@ -1,6 +1,6 @@
 import { AboutSection } from "./AboutSection";
 import { UE5Section } from "./UE5Section";
-import { GodotSection } from "src/components/GodotSection.tsx";
+import { GodotSection } from "./GodotSection";
 import { UnitySection } from "./UnitySection";
 import { ArtworkSection } from "./ArtworkSection";
 import { PlaydateSection } from "./PlaydateSection";
