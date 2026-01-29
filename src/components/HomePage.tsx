@@ -1,5 +1,7 @@
 import { AboutSection } from "./AboutSection";
 import { UE5Section } from "./UE5Section";
+import { GodotSection } from "./GodotSection";
+import { UnitySection } from "./UnitySection";
 import { ArtworkSection } from "./ArtworkSection";
 import { PlaydateSection } from "./PlaydateSection";
 import { SoftwareDevSection } from "./SoftwareDevSection";
@@ -14,6 +16,8 @@ export function HomePage({ onNavigate }: HomePageProps) {
     <>
       <AboutSection onNavigate={onNavigate} />
       <UE5Section onNavigate={onNavigate} />
+      <GodotSection onNavigate={onNavigate} />
+      <UnitySection onNavigate={onNavigate} />
       <PlaydateSection />
       <SoftwareDevSection />
       <ArtworkSection />
