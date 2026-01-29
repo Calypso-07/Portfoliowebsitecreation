@@ -133,7 +133,7 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
       media: [],
       links: [],
     },
-    "unity-ahooter": {
+    "unity-shooter": {
       title: "Flap",
       subtitle: "Flappy Bird Remake - Unity",
       description:
