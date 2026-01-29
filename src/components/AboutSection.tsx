@@ -6,6 +6,8 @@ import {
   Code,
   Palette,
   Joystick,
+  Bot,
+  Box,
 } from "lucide-react";
 
 interface AboutSectionProps {
@@ -22,6 +24,20 @@ export function AboutSection({
       icon: Gamepad2,
       gradient: "from-[#A0E7E5] to-[#7DD3C0]",
       description: "Game development & interactive experiences",
+    },
+    {
+      id: "godot",
+      title: "Godot Engine",
+      icon: Bot,
+      gradient: "from-[#A0E7E5] to-[#7C4DFF]",
+      description: "2D game development & open source tools",
+    },
+    {
+      id: "unity",
+      title: "Unity",
+      icon: Box,
+      gradient: "from-[#7C4DFF] to-[#FFABCD]",
+      description: "2D applications & C# scripting",
     },
     {
       id: "playdate",
@@ -153,7 +169,7 @@ export function AboutSection({
             Explore My Work
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sections.map((section, index) => {
               const Icon = section.icon;
               return (
