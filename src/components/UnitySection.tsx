@@ -18,7 +18,7 @@ export function UnitySection({
 
   const projects = [
     {
-      id: "unity-Flappy Bird Remake",
+      id: "unity-shooter",
       title: "Flap!",
       description:
         "A 2D game built in Unity. Features Logic Management, custom Pixel art, and a custom UI system. Fully playable in the browser via WebGL.",
