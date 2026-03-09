@@ -22,7 +22,7 @@ export function GodotSection({
       id: "godot-platformer",
       title: "Pixel Adventure",
       description:
-        "A 2D platformer created with Godot 4. Features custom physics, tilemap interactions, and a particle system. Integrated with itch.io for immediate browser play.",
+        "B0T.NET is a hacker-themed clicker / tower defense game, where you are fighting off a virus continously diving deeper into your file system. Click on the viruses to gain RAM, and use the RAM to buy towers!",
       videoUrl: "",
       thumbnailUrl: godotCover,
     },
