@@ -20,7 +20,7 @@ export function GodotSection({
   const projects = [
     {
       id: "godot-platformer",
-      title: "BOT.NET",
+      title: "BOT.NET - Best 2D Visual Identity and People's Choice Award in Triangle Game Jam",
       description:
         "B0T.NET is a hacker-themed clicker / tower defense game, where you are fighting off a virus continously diving deeper into your file system. Click on the viruses to gain RAM, and use the RAM to buy towers!",
       videoUrl: "",
