@@ -133,6 +133,168 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
       media: [],
       links: [],
     },
+    "unity-runnerguy": {
+      title: "Runner Guy",
+      subtitle: "Endless Runner — Internship Project",
+      description:
+        "A Subway Surfers–style endless runner. When I joined the project it had unresolved bugs, no ad integration, and a UI that broke across screen sizes. I rebuilt the Canvas UI from scratch, fixed the critical bugs, got the game playable again, integrated ads, and published it on Pixidus.",
+      role: "Unity Developer Intern",
+      roleDescription:
+        "Owned UI rebuild, bug fixing, ad integration, and shipping the build to Pixidus. Focused on making the game stable and responsive across different device resolutions.",
+      features: [
+        "Full Canvas UI rebuild for multi-resolution / screen-size support",
+        "Critical gameplay and stability bug fixes",
+        "Ad SDK integration",
+        "Published on Pixidus (pixidus.com)",
+      ],
+      technologies: [
+        "Unity",
+        "C#",
+        "UI Canvas",
+        "Mobile",
+        "Ad Integration",
+      ],
+      // Self-host WebGL: "/games/runnerguy/index.html"
+      // Or itch embed-upload URL. Leave empty to hide the play frame.
+      embedUrl: "",
+      // Optional: iframe preview of another site (many sites block embedding)
+      previewUrl: "",
+      gamePageUrl: "https://pixidus.com",
+      media: [
+        {
+          type: "video",
+          // YouTube: "https://www.youtube.com/embed/VIDEO_ID"
+          // Local: "/videos/runnerguy-demo.mp4"
+          // Drive: "https://drive.google.com/file/d/FILE_ID/preview"
+          url: "",
+          // Local jpg/png/gif: "/images/runnerguy-thumb.jpg"
+          thumbnail: "",
+          title: "Gameplay Demo",
+        },
+        {
+          type: "video",
+          url: "",
+          thumbnail: "",
+          title: "UI Rebuild & Bug Fixes",
+        },
+      ],
+      links: [
+        {
+          label: "Play on Pixidus",
+          url: "https://pixidus.com",
+          icon: "external",
+        },
+      ],
+    },
+    "unity-trivia-football": {
+      title: "Trivia Football",
+      subtitle: "Football Trivia — Internship Project",
+      description:
+        "A football-themed trivia game shipped on Mackolik, one of Turkey’s most widely used sports platforms. Questions are loaded from CSV. The run has three stages with rising difficulty and score weighting, four lifelines (50/50, double answer, ask the audience, and pass), a how-to-play screen, and a dynamic leaderboard with weekly, monthly, and all-time rankings — plus your own rank pinned at the bottom.",
+      role: "Unity Developer Intern",
+      roleDescription:
+        "Built the game end-to-end: CSV question pipeline, lifeline systems, staged difficulty and scoring, leaderboard UX, how-to-play flow, and the final production build for Mackolik.",
+      features: [
+        "Questions loaded from CSV",
+        "Four lifelines: 50/50, Double Answer, Ask the Audience, Pass",
+        "Three-stage difficulty with score scaling",
+        "Weekly, monthly, and all-time leaderboards",
+        "Fixed personal rank row at the bottom of the board",
+        "How-to-play onboarding screen",
+        "Published on Mackolik",
+      ],
+      technologies: [
+        "Unity",
+        "C#",
+        "CSV Data",
+        "Leaderboards",
+        "UI/UX",
+      ],
+      embedUrl: "",
+      previewUrl: "",
+      gamePageUrl: "",
+      media: [
+        {
+          type: "video",
+          url: "",
+          thumbnail: "",
+          title: "Gameplay Demo",
+        },
+        {
+          type: "video",
+          url: "",
+          thumbnail: "",
+          title: "Lifelines & Leaderboard",
+        },
+      ],
+      links: [
+        // Add Mackolik / store URL when you have it:
+        // { label: "Play on Mackolik", url: "https://...", icon: "external" },
+      ],
+    },
+    "unity-solitaire-colors": {
+      title: "Solitaire Colors",
+      subtitle: "Mobile WebGL Port — Internship Project",
+      description:
+        "Took a Solitaire game that was packed for Android, decoded and repaired the build, then adapted it to run as mobile WebGL. Added advertising and paid purchase flows so the web version could monetize like the native app.",
+      role: "Unity Developer Intern",
+      roleDescription:
+        "Handled decode/fix of the packed Android build, WebGL adaptation for mobile browsers, and placement of ads plus paid purchase integration.",
+      features: [
+        "Decoded and fixed a packed Android build",
+        "Adapted gameplay for mobile WebGL",
+        "Ad placement and integration",
+        "Paid purchase / IAP wiring",
+      ],
+      technologies: [
+        "Unity",
+        "C#",
+        "WebGL",
+        "Mobile Web",
+        "Ads",
+        "IAP",
+      ],
+      // Self-host: "/games/solitaire-colors/index.html"
+      embedUrl: "",
+      previewUrl: "",
+      gamePageUrl: "",
+      media: [
+        {
+          type: "video",
+          url: "",
+          thumbnail: "",
+          title: "Gameplay Demo",
+        },
+      ],
+      links: [],
+    },
+    "unity-sudoku": {
+      title: "Sudoku Localization",
+      subtitle: "Multi-language Support — Internship Project",
+      description:
+        "Configured localization for a Sudoku title so the game works correctly in multiple languages — strings, UI layout considerations, and locale switching.",
+      role: "Unity Developer Intern",
+      roleDescription:
+        "Set up and validated localization settings so players can experience the game in different languages without broken UI or missing text.",
+      features: [
+        "Multi-language localization setup",
+        "Locale-aware string and UI handling",
+        "Verified gameplay across supported languages",
+      ],
+      technologies: ["Unity", "Localization", "i18n", "C#"],
+      embedUrl: "",
+      previewUrl: "",
+      gamePageUrl: "",
+      media: [
+        {
+          type: "video",
+          url: "",
+          thumbnail: "",
+          title: "Localization Walkthrough",
+        },
+      ],
+      links: [],
+    },
     "unity-shooter": {
       title: "Flap",
       subtitle: "Flappy Bird Remake - Unity",
@@ -148,9 +310,7 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
         "WebGL optimized",
       ],
       technologies: ["Unity", "C#", "WebGL", "Visual Studio"],
-      // IMPORTANT: Replace this URL with the one from your Itch.io Dashboard -> Edit Game -> Distribute -> Embed Game.
-      // The current URL below uses the WIDGET ID (4237188) which is likely WRONG for embed-upload.
-      // It should look like: https://itch.io/embed-upload/YOUR_UPLOAD_ID?color=000f06
+      // itch.io Embed Game URL (Distribute tab)
       embedUrl:
         "https://itch.io/embed-upload/16289815?color=333333",
       gamePageUrl: "https://cansuoner.itch.io/flap",
@@ -208,8 +368,18 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
   // Helper to determine if the URL is a widget or a playable embed
   const isWidget =
     game.embedUrl && game.embedUrl.includes("/embed/");
+  const isItchEmbed =
+    game.embedUrl &&
+    game.embedUrl.includes("itch.io") &&
+    game.embedUrl.includes("/embed-upload/");
+  const isSelfHosted =
+    game.embedUrl &&
+    (game.embedUrl.startsWith("/games/") ||
+      game.embedUrl.endsWith(".html"));
   const isPlayable =
-    game.embedUrl && game.embedUrl.includes("/embed-upload/");
+    isItchEmbed ||
+    isSelfHosted ||
+    (game.embedUrl && !isWidget);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#E8F5F5] via-[#F0FFFF] to-[#E0F7FA] py-20 px-6">
@@ -239,7 +409,7 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
           </p>
         </motion.div>
 
-        {/* Embed Section */}
+        {/* Embed / Play Section */}
         {game.embedUrl && (
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -248,20 +418,17 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
             className="mb-12"
           >
             <div className="bg-white rounded-3xl overflow-hidden shadow-xl p-6 flex flex-col items-center">
-              {/* Title */}
               <div className="flex items-center gap-2 mb-6 self-start">
                 <Gamepad2 className="w-6 h-6 text-[#7C4DFF]" />
                 <h3 className="text-xl text-gray-800 font-semibold">
                   {isPlayable
                     ? "Play Now"
-                    : "Available on Itch.io"}
+                    : "Available Externally"}
                 </h3>
               </div>
 
-              {/* Logic to choose between Widget and Playable Iframe */}
               {isWidget ? (
                 <div className="flex flex-col items-center gap-4">
-                  {/* Widget Iframe */}
                   <iframe
                     src={game.embedUrl}
                     width="552"
@@ -275,14 +442,9 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
                   </iframe>
 
                   <div className="text-center max-w-lg mt-4 text-sm text-gray-500">
-                    <p className="mb-2">
-                      The game is hosted on Itch.io. Click the
-                      banner above to visit the game page.
-                    </p>
-                    <p className="italic text-xs text-gray-400">
-                      (To play directly on this page, replace
-                      the widget URL in the code with the 'Embed
-                      Game' URL from your Itch.io dashboard.)
+                    <p>
+                      Hosted externally. Use the banner above or
+                      the links below to open the game.
                     </p>
                   </div>
                 </div>
@@ -293,49 +455,75 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
                       src={game.embedUrl}
                       className="w-full h-full border-0 absolute inset-0"
                       allowFullScreen
-                      allow="autoplay; fullscreen; gamepad"
+                      allow="autoplay; fullscreen; gamepad; clipboard-write"
                     />
                   </div>
 
-                  {/* Troubleshooting Tip for User */}
-                  <div className="bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3 rounded-xl text-sm">
-                    <p className="font-semibold mb-1">
-                      Game not loading?
+                  {isItchEmbed && (
+                    <div className="bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3 rounded-xl text-sm">
+                      <p className="font-semibold mb-1">
+                        Game not loading?
+                      </p>
+                      <p>
+                        Use the <strong>Embed Game</strong> URL
+                        from itch.io Dashboard → Edit Game →
+                        Distribute (embed-upload), not the widget
+                        ID.
+                      </p>
+                    </div>
+                  )}
+
+                  {isSelfHosted && (
+                    <p className="text-sm text-gray-500">
+                      Self-hosted WebGL build from{" "}
+                      <code>{game.embedUrl}</code>. If it fails
+                      to load, check compression headers or host
+                      on itch.io instead.
                     </p>
-                    <p>
-                      The current URL (
-                      <code>{game.embedUrl}</code>) might be
-                      using the <strong>Game ID</strong> instead
-                      of the <strong>Upload ID</strong>.
-                    </p>
-                    <p className="mt-2">
-                      To fix this:
-                      <ol className="list-decimal ml-5 mt-1 space-y-1">
-                        <li>
-                          Go to your Itch.io Dashboard &gt; Edit
-                          Game &gt; <strong>Distribute</strong>.
-                        </li>
-                        <li>Ensure "Embed game" is checked.</li>
-                        <li>
-                          Copy the iframe URL provided there (it
-                          will contain a different number than{" "}
-                          {
-                            game.embedUrl
-                              .split("/")
-                              .pop()
-                              ?.split("?")[0]
-                          }
-                          ).
-                        </li>
-                        <li>
-                          Update the <code>embedUrl</code> in{" "}
-                          <code>GameDetailPage.tsx</code>.
-                        </li>
-                      </ol>
-                    </p>
-                  </div>
+                  )}
                 </div>
               )}
+            </div>
+          </motion.div>
+        )}
+
+        {/* External site preview (optional — many sites block iframes) */}
+        {game.previewUrl && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.12 }}
+            className="mb-12"
+          >
+            <div className="bg-white rounded-3xl overflow-hidden shadow-xl p-6">
+              <div className="flex items-center justify-between gap-4 mb-4 flex-wrap">
+                <div className="flex items-center gap-2">
+                  <ExternalLink className="w-5 h-5 text-[#7C4DFF]" />
+                  <h3 className="text-xl text-gray-800 font-semibold">
+                    Live Preview
+                  </h3>
+                </div>
+                <a
+                  href={game.previewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-[#7C4DFF] hover:underline"
+                >
+                  Open in new tab
+                </a>
+              </div>
+              <div className="w-full aspect-video bg-gray-100 rounded-xl overflow-hidden relative border border-gray-200">
+                <iframe
+                  src={game.previewUrl}
+                  className="w-full h-full border-0 absolute inset-0"
+                  title={`${game.title} preview`}
+                />
+              </div>
+              <p className="text-xs text-gray-400 mt-3">
+                If this shows blank, the site blocks embedding
+                (X-Frame-Options). Use “Open in new tab” or a
+                gameplay video instead.
+              </p>
             </div>
           </motion.div>
         )}
@@ -396,7 +584,7 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
                     </>
                   ) : (
                     <>
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                      <div className="absolute inset-0 bg-black/10" />
                       {media.url ? (
                         <motion.div
                           whileHover={{ scale: 1.1 }}
@@ -406,10 +594,20 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
                           <Play className="w-8 h-8 text-[#7C4DFF] ml-1" />
                         </motion.div>
                       ) : (
-                        <div className="text-white/80 text-center p-6">
-                          <p>
-                            Add video URL to display{" "}
+                        <div className="relative z-10 text-white/90 text-center p-6 max-w-md">
+                          <p className="font-medium mb-2">
                             {media.title}
+                          </p>
+                          <p className="text-sm text-white/75">
+                            Add{" "}
+                            <code className="text-xs bg-black/20 px-1 rounded">
+                              thumbnail
+                            </code>{" "}
+                            (jpg/png/gif) and optional{" "}
+                            <code className="text-xs bg-black/20 px-1 rounded">
+                              url
+                            </code>{" "}
+                            (video) in GameDetailPage.tsx
                           </p>
                         </div>
                       )}
@@ -481,11 +679,12 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
               )}
             </div>
 
-            {game.links && game.links.length > 0 && (
+            {((game.links && game.links.length > 0) ||
+              game.gamePageUrl) && (
               <>
                 <h4 className="mb-3 text-gray-800">Links</h4>
                 <div className="space-y-3">
-                  {game.links.map(
+                  {game.links?.map(
                     (link: any, index: number) => (
                       <motion.a
                         key={index}
@@ -506,6 +705,23 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
                       </motion.a>
                     ),
                   )}
+                  {game.gamePageUrl &&
+                    !(game.links || []).some(
+                      (l: any) => l.url === game.gamePageUrl,
+                    ) && (
+                      <motion.a
+                        href={game.gamePageUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.02 }}
+                        className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#A0E7E5]/20 to-[#7DD3C0]/20 rounded-xl hover:from-[#A0E7E5]/30 hover:to-[#7DD3C0]/30 transition-colors"
+                      >
+                        <ExternalLink className="w-5 h-5 text-[#2D8B8A]" />
+                        <span className="text-gray-700">
+                          Open game page
+                        </span>
+                      </motion.a>
+                    )}
                 </div>
               </>
             )}

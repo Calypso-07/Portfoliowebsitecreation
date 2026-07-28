@@ -5,6 +5,8 @@
 
   export default defineConfig({
     plugins: [react()],
+    // Local images/videos/WebGL builds live under src/public
+    publicDir: path.resolve(__dirname, './src/public'),
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {
