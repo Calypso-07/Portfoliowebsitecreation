@@ -24,7 +24,7 @@ export function UnitySection({
       description:
         "Subway Surfers–style endless runner brought from a broken build to production. Rebuilt the entire UI Canvas for multi-resolution support, fixed critical bugs, integrated ads, and published on Pixidus.",
       // LOCAL: "/videos/runnerguy-demo.mp4" | YouTube: "https://www.youtube.com/embed/VIDEO_ID"
-      videoUrl: "C:\Users\cansu\Downloads\runnerguy-video.mp4",
+      videoUrl: "/videos/runnerguy-video.mp4",
       // LOCAL: "/images/runnerguy-thumb.jpg" or .gif | Drive thumbnail / Imgur also work
       thumbnailUrl: "",
       tags: ["Unity", "C#", "UI Canvas", "Ads", "Mobile"],
