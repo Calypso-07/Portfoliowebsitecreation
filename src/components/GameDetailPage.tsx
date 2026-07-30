@@ -166,7 +166,7 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
           // YouTube: "https://www.youtube.com/embed/VIDEO_ID"
           // Local: "/videos/runnerguy-demo.mp4"
           // Drive: "https://drive.google.com/file/d/FILE_ID/preview"
-          url: "",
+          url: "/videos/runnerguy-video.mp4",
           // Local jpg/png/gif: "/images/runnerguy-thumb.jpg"
           thumbnail: "",
           title: "Gameplay Demo",
