@@ -1,12 +1,11 @@
 import { motion } from "motion/react";
 import {
-  Play,
   ArrowLeft,
   Github,
   ExternalLink,
   Gamepad2,
 } from "lucide-react";
-import { useState } from "react";
+import { AdaptiveVideoPlayer } from "./AdaptiveVideoPlayer";
 
 const pizzaDeliveryCover =
   "https://drive.google.com/thumbnail?id=1tsLykXWahGshQehcEniebXquvAoyeqIN&sz=w2000";
@@ -26,10 +25,6 @@ export function GameDetailPage({
   gameId,
   onNavigate,
 }: GameDetailPageProps) {
-  const [playingVideo, setPlayingVideo] = useState<
-    number | null
-  >(null);
-
   // Game data
   const games: Record<string, any> = {
     "pizza-delivery": {
@@ -135,49 +130,119 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
     },
     "unity-runnerguy": {
       title: "Runner Guy",
-      subtitle: "Endless Runner — Internship Project",
+      subtitle: "Productionizing an Inherited Unity Codebase",
       description:
-        "A Subway Surfers–style endless runner. When I joined the project it had unresolved bugs, no ad integration, and a UI that broke across screen sizes. I rebuilt the Canvas UI from scratch, fixed the critical bugs, got the game playable again, integrated ads, and published it on Pixidus.",
-      role: "Unity Developer Intern",
+        "A 3-lane vertical endless runner for mobile and WebGL. I did not build it from scratch — I inherited an unowned, undocumented, decompiled, testless codebase and engineered it into a production-ready title shipped on Pixidus.",
+      role: "Gameplay & Engine Programmer",
       roleDescription:
-        "Owned UI rebuild, bug fixing, ad integration, and shipping the build to Pixidus. Focused on making the game stable and responsive across different device resolutions.",
+        "Refactored 21 scripts (+2,013 / −73 LOC), added 9 architecture files, and migrated the project to Unity 6. Focused on systems diagnosis, platform interop, cold-start performance, and shipping a stable build.",
       features: [
-        "Full Canvas UI rebuild for multi-resolution / screen-size support",
-        "Critical gameplay and stability bug fixes",
-        "Ad SDK integration",
+        "Legacy decompiled C# codebase rehabilitated for production",
+        "Unity 2021 → Unity 6 engine migration",
+        "Cold-start load time cut from ~6s to ~1s",
+        "Locale / TextMeshPro / CanvasScaler systems fixes",
+        "WebGL–iOS fullscreen interop polyfill",
         "Published on Pixidus (pixidus.com)",
       ],
       technologies: [
-        "Unity",
+        "Unity 6",
         "C#",
-        "UI Canvas",
-        "Mobile",
-        "Ad Integration",
+        "Built-in RP",
+        "TextMeshPro",
+        "WebGL",
+        "JS Interop",
+        "Android",
       ],
-      // Self-host WebGL: "/games/runnerguy/index.html"
-      // Or itch embed-upload URL. Leave empty to hide the play frame.
       embedUrl: "",
-      // Optional: iframe preview of another site (many sites block embedding)
       previewUrl: "",
       gamePageUrl: "https://pixidus.com",
-      media: [
-        {
-          type: "video",
-          // YouTube: "https://www.youtube.com/embed/VIDEO_ID"
-          // Local: "/videos/runnerguy-demo.mp4"
-          // Drive: "https://drive.google.com/file/d/FILE_ID/preview"
-          url: "/videos/runnerguy-video.mp4",
-          // Local jpg/png/gif: "/images/runnerguy-thumb.jpg"
-          thumbnail: "",
-          title: "Gameplay Demo",
+      // Portrait gameplay clip sits beside the header
+      heroVideo: {
+        url: "/videos/runnerguy-video.mp4",
+        title: "Gameplay Demo",
+      },
+      media: [],
+      caseStudy: {
+        title: "Technical Case Study",
+        intro:
+          "Structural debt, systems-level debugging, and measurable outcomes from taking an inherited runner to production.",
+        metrics: [
+          { value: "~6s → ~1s", label: "Cold load time" },
+          { value: "+2,013 / −73", label: "LOC · 21 files" },
+          { value: "50Hz → 0", label: "Exception spike" },
+          { value: "2021 → U6", label: "Engine upgrade" },
+        ],
+        context: {
+          title: "Context & Technical Debt",
+          body: "The existing codebase exhibited severe structural debt before any feature work could land safely:",
+          bullets: [
+            "Decompiled C# sources — typo-heavy names (Obstracle, Collieder, strightPathList), no comments, original authors unreachable",
+            "Monolithic single-scene architecture — menu and gameplay lived in Game.unity, driven entirely by UI canvas toggles",
+            "Fragile Inspector wiring — critical logic depended on explicit GUID/fileID links instead of dynamic initialization",
+          ],
         },
-        {
-          type: "video",
-          url: "",
-          thumbnail: "",
-          title: "UI Rebuild & Bug Fixes",
-        },
-      ],
+        highlights: [
+          {
+            number: "01",
+            title: "System-Level Locale & Font Atlas Diagnosis",
+            problem:
+              'Certain lowercase "i" characters vanished across the UI. "SKIP" rendered as "SK P" — intermittent, element-dependent.',
+            diagnosis: [
+              "Affected TextMeshPro elements used FontStyles.UpperCase",
+              "tr-TR locale: ToUpper() maps 'i' → 'İ' (U+0130), not ASCII 'I'",
+              "Font atlas only contained glyphs up to U+007E — missing U+0130 → blank glyph",
+            ],
+            decision:
+              "A 29-line runtime bootstrapper with [RuntimeInitializeOnLoadMethod(BeforeSceneLoad)] forces CultureInfo.InvariantCulture before scene load. Follow-up: Convert.ToDateTime(string) assumptions broke under invariant culture, crashing uimanager.Start() and firing exceptions at 50 Hz in VaultTimer.FixedUpdate() — fixed with a SafeDate utility (fallback culture chains + explicit defaults per call-site).",
+          },
+          {
+            number: "02",
+            title: "Scene Deserialization & Canvas Scale Overrides",
+            problem:
+              "During the opening police chase, the enemy scaled massively and blocked the screen. Editor visual fixes kept reverting.",
+            diagnosis: [
+              "Tutorial Time.timeScale freeze left the chase coroutine mid-flight",
+              "StopChase() skipped cleanup on fresh runs due to null coroutine checks",
+              "Root cause: enemy lived under a Scale With Screen Size Canvas — Game view vs Simulator mismatch exposed lossyScale mutation; ~47k-line Game.unity diffs overwrote scene edits",
+            ],
+            decision:
+              "Moved state ownership from scene serialization into C# runtime enforcement — pin enemy world scale every frame against parent Canvas lossyScale.",
+            code: `// Forces enemy world scale to 1.0f by counteracting parent Canvas lossyScale
+private void PinEnemyWorldScale()
+{
+    Transform p = EnemyTransform.parent;
+    Vector3 pl = (p != null) ? p.lossyScale : Vector3.one;
+    if (Mathf.Approximately(pl.x, 0f)) return; // Canvas uninitialized on frame 0
+    EnemyTransform.localScale = new Vector3(1f / pl.x, 1f / pl.y, 1f / pl.z);
+}`,
+          },
+          {
+            number: "03",
+            title: "WebGL / iOS Fullscreen Interop Polyfill",
+            problem:
+              "WebGL builds on iOS shells threw TypeError: requestFullscreen is not a function.",
+            diagnosis: [
+              "iOS WebKit only exposes Fullscreen API on <video>, not arbitrary DOM elements",
+              "Platform shell scripts called element.requestFullscreen() with no capability checks",
+            ],
+            decision:
+              "Built a .jslib polyfill that conditionally stubs missing methods and swallows non-critical fullscreen exceptions. Bound init to a C# [DllImport(\"__Internal\")] bridge at boot so Emscripten does not strip the plugin.",
+          },
+          {
+            number: "04",
+            title: "Cold-Start Optimization (~6s → ~1s)",
+            problem:
+              "Profiling showed three init bottlenecks dominating first paint.",
+            diagnosis: [
+              "Object pool allocation (~5s) — WaitForFixedUpdate after every prefab (~240 × ~20ms)",
+              "Artificial UI delay (≥1s) — progress bar MoveTowards regardless of asset readiness",
+              "Hardcoded unconditional coroutine waits (1.5s)",
+            ],
+            decision:
+              "Batched pool allocation (yield every 8 items via yield return null) and replaced O(N) List.Insert(0, item) with O(1) List.Add(). Load time dropped ~6s → ~1s while keeping frame allocation smooth.",
+          },
+        ],
+      },
       links: [
         {
           label: "Play on Pixidus",
@@ -395,18 +460,34 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
           Back to Home
         </motion.button>
 
-        {/* Header */}
+        {/* Header + optional hero video (e.g. portrait gameplay) */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="mb-12"
+          className={`mb-12 ${
+            game.heroVideo
+              ? "grid lg:grid-cols-[1fr_minmax(240px,320px)] gap-10 items-start"
+              : ""
+          }`}
         >
-          <p className="text-[#7C4DFF] mb-2">{game.subtitle}</p>
-          <h1 className="text-gray-800 mb-4">{game.title}</h1>
-          <p className="text-gray-600 max-w-3xl whitespace-pre-wrap">
-            {game.description}
-          </p>
+          <div>
+            <p className="text-[#7C4DFF] mb-2">{game.subtitle}</p>
+            <h1 className="text-gray-800 mb-4">{game.title}</h1>
+            <p className="text-gray-600 max-w-3xl whitespace-pre-wrap">
+              {game.description}
+            </p>
+          </div>
+          {game.heroVideo?.url && (
+            <AdaptiveVideoPlayer
+              url={game.heroVideo.url}
+              title={game.heroVideo.title}
+              thumbnail={game.heroVideo.thumbnail}
+              preferredAspect="portrait"
+              compact
+              className="lg:sticky lg:top-24"
+            />
+          )}
         </motion.div>
 
         {/* Embed / Play Section */}
@@ -529,98 +610,179 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
         )}
 
         {/* Media Section */}
-        {game.media && game.media.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-12 space-y-8"
-          >
-            {game.media.map((media: any, index: number) => (
-              <div
-                key={index}
-                className="bg-white rounded-3xl overflow-hidden shadow-xl"
-              >
-                <div className="relative aspect-video bg-gradient-to-br from-[#A0E7E5] to-[#7DD3C0] flex items-center justify-center group">
-                  {media.url && playingVideo === index ? (
-                    media.url.includes("youtube.com") ||
-                    media.url.includes("vimeo.com") ||
-                    media.url.includes("drive.google.com") ? (
-                      <iframe
-                        src={media.url}
-                        className="absolute inset-0 w-full h-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
+        {game.media &&
+          game.media.filter((m: any) => m.url || m.thumbnail)
+            .length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mb-12 space-y-8"
+            >
+              {game.media
+                .filter((m: any) => m.url || m.thumbnail)
+                .map((media: any, index: number) => (
+                  <div
+                    key={index}
+                    className="bg-white rounded-3xl overflow-hidden shadow-xl p-6"
+                  >
+                    {media.url ? (
+                      <AdaptiveVideoPlayer
+                        url={media.url}
+                        title={media.title}
+                        thumbnail={media.thumbnail}
                       />
                     ) : (
-                      <video
-                        src={media.url}
-                        className="absolute inset-0 w-full h-full object-cover"
-                        controls
-                        autoPlay
-                      />
-                    )
-                  ) : media.thumbnail ? (
-                    <>
-                      <img
-                        src={media.thumbnail}
-                        alt={media.title}
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
-                      {media.url && (
-                        <>
-                          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
-                          <motion.div
-                            whileHover={{ scale: 1.1 }}
-                            onClick={() =>
-                              setPlayingVideo(index)
-                            }
-                            className="relative z-10 w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg cursor-pointer"
-                          >
-                            <Play className="w-8 h-8 text-[#7C4DFF] ml-1" />
-                          </motion.div>
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      <div className="absolute inset-0 bg-black/10" />
-                      {media.url ? (
-                        <motion.div
-                          whileHover={{ scale: 1.1 }}
-                          onClick={() => setPlayingVideo(index)}
-                          className="relative z-10 w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg cursor-pointer"
-                        >
-                          <Play className="w-8 h-8 text-[#7C4DFF] ml-1" />
-                        </motion.div>
-                      ) : (
-                        <div className="relative z-10 text-white/90 text-center p-6 max-w-md">
-                          <p className="font-medium mb-2">
+                      <>
+                        <div className="relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-[#A0E7E5] to-[#7DD3C0]">
+                          <img
+                            src={media.thumbnail}
+                            alt={media.title}
+                            className="absolute inset-0 w-full h-full object-cover"
+                          />
+                        </div>
+                        {media.title && (
+                          <p className="mt-3 text-sm text-gray-500 text-center">
                             {media.title}
                           </p>
-                          <p className="text-sm text-white/75">
-                            Add{" "}
-                            <code className="text-xs bg-black/20 px-1 rounded">
-                              thumbnail
-                            </code>{" "}
-                            (jpg/png/gif) and optional{" "}
-                            <code className="text-xs bg-black/20 px-1 rounded">
-                              url
-                            </code>{" "}
-                            (video) in GameDetailPage.tsx
-                          </p>
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-                <div className="p-6">
-                  <h4 className="text-gray-800">
-                    {media.title}
-                  </h4>
-                </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                ))}
+            </motion.div>
+          )}
+
+        {/* Technical Case Study */}
+        {game.caseStudy && (
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.25 }}
+            className="mb-12"
+          >
+            <div className="mb-8">
+              <h2 className="text-gray-800 mb-2">
+                {game.caseStudy.title}
+              </h2>
+              <p className="text-gray-600 max-w-3xl">
+                {game.caseStudy.intro}
+              </p>
+            </div>
+
+            {game.caseStudy.metrics?.length > 0 && (
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-10">
+                {game.caseStudy.metrics.map(
+                  (
+                    metric: { value: string; label: string },
+                    i: number,
+                  ) => (
+                    <div
+                      key={i}
+                      className="rounded-2xl bg-white/80 border border-[#A0E7E5]/40 px-4 py-5 text-center shadow-sm"
+                    >
+                      <p className="text-lg sm:text-xl font-semibold text-[#5B35C8] tracking-tight mb-1">
+                        {metric.value}
+                      </p>
+                      <p className="text-xs sm:text-sm text-gray-500 uppercase tracking-wide">
+                        {metric.label}
+                      </p>
+                    </div>
+                  ),
+                )}
               </div>
-            ))}
+            )}
+
+            {game.caseStudy.context && (
+              <div className="bg-white rounded-3xl p-8 shadow-xl mb-8">
+                <h3 className="text-gray-800 mb-3">
+                  {game.caseStudy.context.title}
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  {game.caseStudy.context.body}
+                </p>
+                <ul className="space-y-3">
+                  {game.caseStudy.context.bullets.map(
+                    (bullet: string, i: number) => (
+                      <li
+                        key={i}
+                        className="flex gap-3 text-gray-600 text-sm sm:text-base leading-relaxed"
+                      >
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#7C4DFF]" />
+                        <span>{bullet}</span>
+                      </li>
+                    ),
+                  )}
+                </ul>
+              </div>
+            )}
+
+            <div className="space-y-6">
+              {game.caseStudy.highlights.map(
+                (h: any, i: number) => (
+                  <article
+                    key={i}
+                    className="bg-white rounded-3xl shadow-xl overflow-hidden"
+                  >
+                    <div className="flex items-start gap-4 px-6 sm:px-8 pt-7 pb-4 border-b border-gray-100">
+                      <span className="text-sm font-semibold tracking-widest text-[#7C4DFF]/80 mt-1">
+                        {h.number}
+                      </span>
+                      <h3 className="text-gray-800 text-lg sm:text-xl leading-snug">
+                        {h.title}
+                      </h3>
+                    </div>
+
+                    <div className="px-6 sm:px-8 py-6 space-y-5">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-[#2D8B8A] mb-1.5">
+                          Problem
+                        </p>
+                        <p className="text-gray-700 leading-relaxed">
+                          {h.problem}
+                        </p>
+                      </div>
+
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-[#2D8B8A] mb-2">
+                          Diagnosis
+                        </p>
+                        <ol className="space-y-2">
+                          {h.diagnosis.map(
+                            (step: string, si: number) => (
+                              <li
+                                key={si}
+                                className="flex gap-3 text-gray-600 text-sm sm:text-base leading-relaxed"
+                              >
+                                <span className="shrink-0 w-5 h-5 rounded-full bg-[#A0E7E5]/40 text-[#2D8B8A] text-xs flex items-center justify-center mt-0.5 font-medium">
+                                  {si + 1}
+                                </span>
+                                <span>{step}</span>
+                              </li>
+                            ),
+                          )}
+                        </ol>
+                      </div>
+
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-[#2D8B8A] mb-1.5">
+                          Decision
+                        </p>
+                        <p className="text-gray-700 leading-relaxed">
+                          {h.decision}
+                        </p>
+                      </div>
+
+                      {h.code && (
+                        <pre className="mt-2 overflow-x-auto rounded-2xl bg-[#1a1f2e] text-[#E8EEF7] text-[11px] sm:text-xs leading-relaxed p-4 sm:p-5 font-mono">
+                          <code>{h.code}</code>
+                        </pre>
+                      )}
+                    </div>
+                  </article>
+                ),
+              )}
+            </div>
           </motion.div>
         )}
 

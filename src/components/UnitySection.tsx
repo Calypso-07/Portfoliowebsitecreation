@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
-import { Play, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight } from "lucide-react";
+import { AdaptiveVideoPlayer } from "./AdaptiveVideoPlayer";
 
 // Existing personal project cover
 const flapCover =
@@ -13,21 +13,16 @@ interface UnitySectionProps {
 export function UnitySection({
   onNavigate,
 }: UnitySectionProps) {
-  const [playingVideo, setPlayingVideo] = useState<
-    number | null
-  >(null);
-
   const projects = [
     {
       id: "unity-runnerguy",
       title: "Runner Guy",
       description:
-        "Subway Surfers–style endless runner brought from a broken build to production. Rebuilt the entire UI Canvas for multi-resolution support, fixed critical bugs, integrated ads, and published on Pixidus.",
-      // LOCAL: "/videos/runnerguy-demo.mp4" | YouTube: "https://www.youtube.com/embed/VIDEO_ID"
+        "Inherited an undocumented, decompiled endless-runner codebase and productionized it — systems debugging, Unity 6 migration, cold-start optimization (~6s → ~1s), and a Pixidus ship.",
       videoUrl: "/videos/runnerguy-video.mp4",
-      // LOCAL: "/images/runnerguy-thumb.jpg" or .gif | Drive thumbnail / Imgur also work
       thumbnailUrl: "",
-      tags: ["Unity", "C#", "UI Canvas", "Ads", "Mobile"],
+      portraitVideo: true,
+      tags: ["Unity 6", "C#", "Legacy Rehab", "WebGL", "Mobile"],
     },
     {
       id: "unity-trivia-football",
@@ -100,49 +95,38 @@ export function UnitySection({
               viewport={{ once: true }}
               className="bg-white rounded-3xl overflow-hidden shadow-xl"
             >
-              <div className="grid md:grid-cols-2 gap-0">
-                <div className="relative aspect-video md:aspect-auto min-h-[220px] bg-gradient-to-br from-[#A0E7E5] to-[#7DD3C0] flex items-center justify-center group">
-                  {project.videoUrl &&
-                  playingVideo === index ? (
-                    project.videoUrl.includes("youtube.com") ||
-                    project.videoUrl.includes("vimeo.com") ||
-                    project.videoUrl.includes("drive.google.com") ? (
-                      <iframe
-                        src={project.videoUrl}
-                        className="absolute inset-0 w-full h-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
-                    ) : (
-                      <video
-                        src={project.videoUrl}
-                        className="absolute inset-0 w-full h-full object-cover"
-                        controls
-                        autoPlay
-                      />
-                    )
+              <div
+                className={`grid gap-0 ${
+                  project.portraitVideo
+                    ? "md:grid-cols-[minmax(200px,280px)_1fr]"
+                    : "md:grid-cols-2"
+                }`}
+              >
+                <div
+                  className={`relative flex items-center justify-center bg-gradient-to-br from-[#A0E7E5] to-[#7DD3C0] ${
+                    project.portraitVideo
+                      ? "p-6 md:p-8 min-h-[280px]"
+                      : "aspect-video md:aspect-auto min-h-[220px]"
+                  }`}
+                >
+                  {project.videoUrl ? (
+                    <AdaptiveVideoPlayer
+                      url={project.videoUrl}
+                      thumbnail={project.thumbnailUrl || undefined}
+                      compact={!!project.portraitVideo}
+                      preferredAspect={
+                        project.portraitVideo
+                          ? "portrait"
+                          : "unknown"
+                      }
+                      className="w-full"
+                    />
                   ) : project.thumbnailUrl ? (
-                    <>
-                      <img
-                        src={project.thumbnailUrl}
-                        alt={project.title}
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
-                      {project.videoUrl && (
-                        <>
-                          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
-                          <motion.div
-                            whileHover={{ scale: 1.1 }}
-                            onClick={() =>
-                              setPlayingVideo(index)
-                            }
-                            className="relative z-10 w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg cursor-pointer"
-                          >
-                            <Play className="w-8 h-8 text-[#7C4DFF] ml-1" />
-                          </motion.div>
-                        </>
-                      )}
-                    </>
+                    <img
+                      src={project.thumbnailUrl}
+                      alt={project.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
                   ) : (
                     <div className="text-white/90 text-center p-6 px-8">
                       <p className="mb-1 font-medium">
