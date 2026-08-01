@@ -51,10 +51,10 @@ export function AdaptiveVideoPlayer({
   const shellClass =
     effective === "portrait"
       ? compact
-        ? "w-full max-w-[280px] mx-auto aspect-[9/16] max-h-[70vh]"
-        : "w-full max-w-[360px] mx-auto aspect-[9/16] max-h-[75vh]"
+        ? "h-[min(52vh,400px)] w-auto max-w-full aspect-[9/16] mx-auto"
+        : "h-[min(82vh,720px)] w-auto max-w-full aspect-[9/16] mx-auto"
       : effective === "square"
-        ? "w-full max-w-xl mx-auto aspect-square"
+        ? "w-full max-w-2xl mx-auto aspect-square"
         : "w-full aspect-video";
 
   const handleMeta = (e: SyntheticEvent<HTMLVideoElement>) => {
