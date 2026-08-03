@@ -5,7 +5,9 @@ import {
   ExternalLink,
   Gamepad2,
 } from "lucide-react";
+import type { CSSProperties } from "react";
 import { AdaptiveVideoPlayer } from "./AdaptiveVideoPlayer";
+import { AdaptiveImage } from "./AdaptiveImage";
 
 const pizzaDeliveryCover =
   "https://drive.google.com/thumbnail?id=1tsLykXWahGshQehcEniebXquvAoyeqIN&sz=w2000";
@@ -161,6 +163,7 @@ RAM is your currency, earned passively and by killing viruses. Use it to purchas
       heroVideo: {
         url: "/videos/runnerguy-video.mp4",
         title: "Gameplay Demo",
+        aspect: "portrait",
       },
       media: [],
       caseStudy: {
@@ -279,20 +282,12 @@ private void PinEnemyWorldScale()
       embedUrl: "",
       previewUrl: "",
       gamePageUrl: "",
-      media: [
-        {
-          type: "video",
-          url: "",
-          thumbnail: "",
-          title: "Gameplay Demo",
-        },
-        {
-          type: "video",
-          url: "",
-          thumbnail: "",
-          title: "Lifelines & Leaderboard",
-        },
-      ],
+      heroVideo: {
+        url: "/videos/trivia-video.mp4",
+        title: "Gameplay Demo",
+        aspect: "portrait",
+      },
+      media: [],
       links: [
         // Add Mackolik / store URL when you have it:
         // { label: "Play on Mackolik", url: "https://...", icon: "external" },
@@ -324,14 +319,12 @@ private void PinEnemyWorldScale()
       embedUrl: "",
       previewUrl: "",
       gamePageUrl: "",
-      media: [
-        {
-          type: "video",
-          url: "",
-          thumbnail: "",
-          title: "Gameplay Demo",
-        },
-      ],
+      heroVideo: {
+        url: "/videos/Solitaire.mp4",
+        title: "Gameplay Demo",
+        aspect: "landscape",
+      },
+      media: [],
       links: [],
     },
     "unity-sudoku": {
@@ -351,14 +344,12 @@ private void PinEnemyWorldScale()
       embedUrl: "",
       previewUrl: "",
       gamePageUrl: "",
-      media: [
-        {
-          type: "video",
-          url: "",
-          thumbnail: "",
-          title: "Localization Walkthrough",
-        },
-      ],
+      heroImage: {
+        url: "/images/sudoku.png",
+        title: "Localized in-game UI",
+        aspect: "portrait",
+      },
+      media: [],
       links: [],
     },
     "unity-shooter": {
@@ -447,6 +438,19 @@ private void PinEnemyWorldScale()
     isSelfHosted ||
     (game.embedUrl && !isWidget);
 
+  const heroMedia = game.heroVideo?.url
+    ? game.heroVideo
+    : game.heroImage?.url
+      ? game.heroImage
+      : null;
+
+  // Portrait media sizes itself from its own height, so it only needs to be
+  // allowed to shrink. Landscape media needs a real column width instead.
+  const heroMediaStyle: CSSProperties =
+    heroMedia?.aspect === "landscape"
+      ? { flex: "1 1 24rem", minWidth: 0, maxWidth: "34rem" }
+      : { flex: "0 1 auto", maxWidth: "100%" };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#E8F5F5] via-[#F0FFFF] to-[#E0F7FA] py-20 px-6">
       <div className="max-w-6xl mx-auto pt-16">
@@ -461,32 +465,54 @@ private void PinEnemyWorldScale()
           Back to Home
         </motion.button>
 
-        {/* Header + optional hero video (e.g. portrait gameplay) */}
+        {/* Header + optional hero clip or screenshot */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className={`mb-14 ${
-            game.heroVideo
-              ? "grid lg:grid-cols-[minmax(0,1fr)_auto] gap-10 lg:gap-14 items-start"
-              : ""
-          }`}
+          className="mb-12"
+          style={
+            heroMedia
+              ? {
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "flex-start",
+                  gap: "2.5rem",
+                }
+              : undefined
+          }
         >
-          <div className="min-w-0">
+          <div
+            style={
+              heroMedia
+                ? { flex: "1 1 20rem", minWidth: 0 }
+                : undefined
+            }
+          >
             <p className="text-[#7C4DFF] mb-2">{game.subtitle}</p>
             <h1 className="text-gray-800 mb-4">{game.title}</h1>
             <p className="text-gray-600 max-w-3xl whitespace-pre-wrap">
               {game.description}
             </p>
           </div>
-          {game.heroVideo?.url && (
+          {game.heroVideo?.url ? (
             <AdaptiveVideoPlayer
               url={game.heroVideo.url}
               title={game.heroVideo.title}
               thumbnail={game.heroVideo.thumbnail}
-              preferredAspect="portrait"
-              className="justify-self-center lg:justify-self-end lg:sticky lg:top-24"
+              preferredAspect={game.heroVideo.aspect || "portrait"}
+              style={heroMediaStyle}
             />
+          ) : (
+            game.heroImage?.url && (
+              <AdaptiveImage
+                url={game.heroImage.url}
+                title={game.heroImage.title}
+                alt={`${game.title} screenshot`}
+                preferredAspect={game.heroImage.aspect || "portrait"}
+                style={heroMediaStyle}
+              />
+            )
           )}
         </motion.div>
 
@@ -659,19 +685,19 @@ private void PinEnemyWorldScale()
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25 }}
-            className="mb-14"
+            className="mb-12"
           >
-            <div className="mb-10">
-              <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-3">
+            <div className="mb-8">
+              <h2 className="text-gray-800 mb-4">
                 {game.caseStudy.title}
               </h2>
-              <p className="text-gray-600 max-w-3xl text-base sm:text-lg leading-relaxed">
+              <p className="text-gray-600 max-w-3xl">
                 {game.caseStudy.intro}
               </p>
             </div>
 
             {game.caseStudy.metrics?.length > 0 && (
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-12">
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 {game.caseStudy.metrics.map(
                   (
                     metric: { value: string; label: string },
@@ -679,12 +705,12 @@ private void PinEnemyWorldScale()
                   ) => (
                     <div
                       key={i}
-                      className="rounded-2xl bg-[#F3E5F5] border border-[#E8D5F0] px-5 py-6 sm:px-6 sm:py-7 text-center"
+                      className="bg-[#F3E5F5] rounded-2xl p-6 text-center"
                     >
-                      <p className="text-xl sm:text-2xl font-semibold text-[#5B35C8] tracking-tight mb-2">
+                      <h3 className="text-[#7C4DFF] mb-2">
                         {metric.value}
-                      </p>
-                      <p className="text-sm text-gray-600 tracking-wide">
+                      </h3>
+                      <p className="text-gray-600 text-sm">
                         {metric.label}
                       </p>
                     </div>
@@ -694,22 +720,24 @@ private void PinEnemyWorldScale()
             )}
 
             {game.caseStudy.context && (
-              <div className="bg-white rounded-3xl px-8 py-10 sm:px-10 sm:py-12 shadow-xl mb-10">
-                <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-5">
+              <div className="bg-white rounded-3xl p-8 shadow-xl mb-8">
+                <h3 className="mb-4 text-gray-800">
                   {game.caseStudy.context.title}
                 </h3>
-                <p className="text-gray-600 mb-6 text-base leading-relaxed">
+                <p className="text-gray-600 mb-6">
                   {game.caseStudy.context.body}
                 </p>
-                <ul className="space-y-4">
+                <ul className="space-y-2">
                   {game.caseStudy.context.bullets.map(
                     (bullet: string, i: number) => (
                       <li
                         key={i}
-                        className="flex gap-4 text-gray-600 text-base leading-relaxed"
+                        className="flex items-start gap-2 text-gray-600"
                       >
-                        <span className="mt-2.5 h-2 w-2 shrink-0 rounded-full bg-[#7C4DFF]" />
-                        <span>{bullet}</span>
+                        <span className="text-[#7C4DFF] mt-1">
+                          •
+                        </span>
+                        {bullet}
                       </li>
                     ),
                   )}
@@ -722,63 +750,68 @@ private void PinEnemyWorldScale()
                 (h: any, i: number) => (
                   <article
                     key={i}
-                    className="bg-white rounded-3xl shadow-xl overflow-hidden"
+                    className="bg-white rounded-3xl p-8 shadow-xl"
                   >
-                    <div className="flex items-start gap-5 px-8 sm:px-10 pt-9 pb-6 border-b border-gray-100">
-                      <span className="text-base font-semibold tracking-widest text-[#7C4DFF] mt-1 shrink-0">
+                    <div className="flex items-start gap-3 mb-6">
+                      <span className="text-[#7C4DFF]">
                         {h.number}
                       </span>
-                      <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 leading-snug">
+                      <h3 className="text-gray-800">
                         {h.title}
                       </h3>
                     </div>
 
-                    <div className="px-8 sm:px-10 py-8 sm:py-10 space-y-8">
-                      <div>
-                        <p className="text-sm font-semibold uppercase tracking-wider text-[#2D8B8A] mb-3">
-                          Problem
-                        </p>
-                        <p className="text-gray-700 text-base leading-relaxed">
-                          {h.problem}
-                        </p>
-                      </div>
+                    <h4 className="mb-2 text-[#2D8B8A]">
+                      Problem
+                    </h4>
+                    <p className="text-gray-600 mb-6">
+                      {h.problem}
+                    </p>
 
-                      <div>
-                        <p className="text-sm font-semibold uppercase tracking-wider text-[#2D8B8A] mb-4">
-                          Diagnosis
-                        </p>
-                        <ol className="space-y-4">
-                          {h.diagnosis.map(
-                            (step: string, si: number) => (
-                              <li
-                                key={si}
-                                className="flex gap-4 text-gray-600 text-base leading-relaxed"
-                              >
-                                <span className="shrink-0 w-7 h-7 rounded-full bg-[#A0E7E5]/40 text-[#2D8B8A] text-sm flex items-center justify-center mt-0.5 font-semibold">
-                                  {si + 1}
-                                </span>
-                                <span>{step}</span>
-                              </li>
-                            ),
-                          )}
-                        </ol>
-                      </div>
-
-                      <div>
-                        <p className="text-sm font-semibold uppercase tracking-wider text-[#2D8B8A] mb-3">
-                          Decision
-                        </p>
-                        <p className="text-gray-700 text-base leading-relaxed">
-                          {h.decision}
-                        </p>
-                      </div>
-
-                      {h.code && (
-                        <pre className="mt-2 overflow-x-auto rounded-2xl bg-[#1a1f2e] text-[#E8EEF7] text-xs sm:text-sm leading-relaxed p-5 sm:p-6 font-mono">
-                          <code>{h.code}</code>
-                        </pre>
+                    <h4 className="mb-3 text-[#2D8B8A]">
+                      Diagnosis
+                    </h4>
+                    <ol className="space-y-2 mb-6">
+                      {h.diagnosis.map(
+                        (step: string, si: number) => (
+                          <li
+                            key={si}
+                            className="flex items-start gap-2 text-gray-600"
+                          >
+                            <span className="text-[#7C4DFF] mt-1">
+                              {si + 1}.
+                            </span>
+                            {step}
+                          </li>
+                        ),
                       )}
-                    </div>
+                    </ol>
+
+                    <h4 className="mb-2 text-[#2D8B8A]">
+                      Decision
+                    </h4>
+                    <p className="text-gray-600">
+                      {h.decision}
+                    </p>
+
+                    {h.code && (
+                      <pre
+                        style={{
+                          marginTop: "1.5rem",
+                          padding: "1.25rem",
+                          borderRadius: "1rem",
+                          background: "#2D2A4A",
+                          color: "#EDE7F6",
+                          fontFamily:
+                            "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+                          fontSize: "0.8125rem",
+                          lineHeight: 1.7,
+                          overflowX: "auto",
+                        }}
+                      >
+                        <code>{h.code}</code>
+                      </pre>
+                    )}
                   </article>
                 ),
               )}

@@ -1,16 +1,19 @@
 import { motion } from "motion/react";
 import { Play } from "lucide-react";
-import { useState, type SyntheticEvent } from "react";
+import {
+  useState,
+  type CSSProperties,
+  type SyntheticEvent,
+} from "react";
 
-type AspectMode = "unknown" | "portrait" | "landscape" | "square";
-
-function getAspectMode(width: number, height: number): AspectMode {
-  if (!width || !height) return "unknown";
-  const ratio = width / height;
-  if (ratio < 0.85) return "portrait";
-  if (ratio > 1.15) return "landscape";
-  return "square";
-}
+import {
+  FILL_STYLE,
+  FRAME_CLASS,
+  HINT_RATIO,
+  getFrameStyle,
+  isPortraitRatio,
+  type AspectHint,
+} from "./mediaFrame";
 
 function isEmbedUrl(url: string) {
   return (
@@ -25,12 +28,12 @@ interface AdaptiveVideoPlayerProps {
   url: string;
   title?: string;
   thumbnail?: string;
-  /** Compact phone-frame style for portrait clips in side-by-side layouts */
+  /** Smaller frame for portrait clips shown inside listing cards */
   compact?: boolean;
-  /** Hint before metadata loads (avoids a landscape flash for known portrait clips) */
-  preferredAspect?: AspectMode;
+  /** Ratio guess used until the file's real metadata loads */
+  preferredAspect?: AspectHint;
   className?: string;
-  autoPlayOnClick?: boolean;
+  style?: CSSProperties;
 }
 
 export function AdaptiveVideoPlayer({
@@ -40,123 +43,129 @@ export function AdaptiveVideoPlayer({
   compact = false,
   preferredAspect = "unknown",
   className = "",
-  autoPlayOnClick = true,
+  style,
 }: AdaptiveVideoPlayerProps) {
   const [playing, setPlaying] = useState(false);
-  const [aspect, setAspect] = useState<AspectMode>(preferredAspect);
+  const [ratio, setRatio] = useState<number>(
+    HINT_RATIO[preferredAspect],
+  );
+
   const embed = isEmbedUrl(url);
+  const isPortrait = isPortraitRatio(ratio);
 
-  const effective = aspect === "unknown" ? preferredAspect : aspect;
-
-  const shellClass =
-    effective === "portrait"
-      ? compact
-        ? "h-[min(52vh,400px)] w-auto max-w-full aspect-[9/16] mx-auto"
-        : "h-[min(82vh,720px)] w-auto max-w-full aspect-[9/16] mx-auto"
-      : effective === "square"
-        ? "w-full max-w-2xl mx-auto aspect-square"
-        : "w-full aspect-video";
-
-  const handleMeta = (e: SyntheticEvent<HTMLVideoElement>) => {
-    const v = e.currentTarget;
-    setAspect(getAspectMode(v.videoWidth, v.videoHeight));
+  const readMetadata = (
+    e: SyntheticEvent<HTMLVideoElement>,
+  ) => {
+    const { videoWidth, videoHeight } = e.currentTarget;
+    if (videoWidth && videoHeight) {
+      setRatio(videoWidth / videoHeight);
+    }
   };
 
-  // Preload metadata even before play so the frame sizes correctly
-  const metaProbe =
-    !embed && aspect === "unknown" ? (
-      <video
-        src={url}
-        preload="metadata"
-        muted
-        playsInline
-        className="sr-only absolute w-0 h-0 opacity-0 pointer-events-none"
-        onLoadedMetadata={handleMeta}
-        aria-hidden
-      />
-    ) : null;
+  // Chrome refuses unmuted autoplay without a strong user gesture, so fall
+  // back to a muted start instead of leaving the viewer on a frozen frame.
+  const startPlayback = (el: HTMLVideoElement | null) => {
+    if (!el) return;
+    el.play().catch(() => {
+      el.muted = true;
+      el.play().catch(() => {});
+    });
+  };
+
+  const fill = FILL_STYLE;
 
   return (
-    <div className={className}>
-      {metaProbe}
+    <div className={className} style={style}>
       <div
-        className={`relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#A0E7E5] to-[#7DD3C0] flex items-center justify-center group ${shellClass}`}
+        className={FRAME_CLASS}
+        style={getFrameStyle(ratio, compact)}
       >
         {playing ? (
           embed ? (
             <iframe
               src={url}
               title={title || "Video"}
-              className="absolute inset-0 w-full h-full"
+              style={{ ...fill, border: 0 }}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
           ) : (
             <video
+              ref={startPlayback}
               src={url}
-              className="absolute inset-0 w-full h-full object-contain bg-black"
+              style={{
+                ...fill,
+                objectFit: "contain",
+                background: "#000",
+              }}
               controls
               autoPlay
               playsInline
-              onLoadedMetadata={handleMeta}
+              onLoadedMetadata={readMetadata}
             />
           )
-        ) : thumbnail ? (
-          <>
-            <img
-              src={thumbnail}
-              alt={title || "Video thumbnail"}
-              className={`absolute inset-0 w-full h-full ${
-                effective === "portrait"
-                  ? "object-contain bg-black/20"
-                  : "object-cover"
-              }`}
-            />
-            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
-            <PlayButton
-              onClick={() =>
-                autoPlayOnClick ? setPlaying(true) : undefined
-              }
-            />
-          </>
         ) : (
           <>
-            {/* Silent preview first frame once metadata known */}
-            {!embed && (
-              <video
-                src={url}
-                muted
-                playsInline
-                preload="metadata"
-                className="absolute inset-0 w-full h-full object-contain bg-black/10"
-                onLoadedMetadata={handleMeta}
+            {thumbnail ? (
+              <img
+                src={thumbnail}
+                alt={title || "Video thumbnail"}
+                style={{
+                  ...fill,
+                  objectFit: isPortrait ? "contain" : "cover",
+                }}
               />
+            ) : (
+              !embed && (
+                <video
+                  src={url}
+                  muted
+                  playsInline
+                  preload="metadata"
+                  style={{
+                    ...fill,
+                    objectFit: "contain",
+                    background: "rgba(0,0,0,0.08)",
+                  }}
+                  onLoadedMetadata={readMetadata}
+                />
+              )
             )}
-            <div className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors" />
-            <PlayButton onClick={() => setPlaying(true)} />
+            <div
+              style={{
+                ...fill,
+                background: "rgba(0,0,0,0.28)",
+              }}
+            />
+            <motion.button
+              type="button"
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.96 }}
+              onClick={() => setPlaying(true)}
+              aria-label={
+                title ? `Play ${title}` : "Play video"
+              }
+              className="relative z-10 rounded-full bg-white/90 flex items-center justify-center shadow-lg cursor-pointer"
+              style={{
+                width: 64,
+                height: 64,
+                border: 0,
+                padding: 0,
+              }}
+            >
+              <Play className="w-8 h-8 text-[#7C4DFF] ml-1" />
+            </motion.button>
           </>
         )}
       </div>
       {title && (
-        <p className="mt-3 text-sm text-gray-500 text-center">
+        <p
+          className="text-sm text-center"
+          style={{ marginTop: 12, color: "#6b7280" }}
+        >
           {title}
         </p>
       )}
     </div>
-  );
-}
-
-function PlayButton({ onClick }: { onClick?: () => void }) {
-  return (
-    <motion.button
-      type="button"
-      whileHover={{ scale: 1.08 }}
-      whileTap={{ scale: 0.96 }}
-      onClick={onClick}
-      className="relative z-10 w-14 h-14 rounded-full bg-white/95 flex items-center justify-center shadow-lg cursor-pointer"
-      aria-label="Play video"
-    >
-      <Play className="w-7 h-7 text-[#7C4DFF] ml-0.5" />
-    </motion.button>
   );
 }

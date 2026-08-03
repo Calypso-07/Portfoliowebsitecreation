@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { AdaptiveVideoPlayer } from "./AdaptiveVideoPlayer";
+import { AdaptiveImage } from "./AdaptiveImage";
 
 // Existing personal project cover
 const flapCover =
@@ -20,8 +21,9 @@ export function UnitySection({
       description:
         "Inherited an undocumented, decompiled endless-runner codebase and productionized it — systems debugging, Unity 6 migration, cold-start optimization (~6s → ~1s), and a Pixidus ship.",
       videoUrl: "/videos/runnerguy-video.mp4",
+      imageUrl: "",
       thumbnailUrl: "",
-      portraitVideo: true,
+      portraitMedia: true,
       tags: ["Unity 6", "C#", "Legacy Rehab", "WebGL", "Mobile"],
     },
     {
@@ -29,8 +31,10 @@ export function UnitySection({
       title: "Trivia Football",
       description:
         "Football-themed trivia game with CSV-driven questions, four lifelines, three difficulty stages, and a dynamic weekly / monthly / all-time leaderboard. Built end-to-end and shipped on Mackolik.",
-      videoUrl: "",
+      videoUrl: "/videos/trivia-video.mp4",
+      imageUrl: "",
       thumbnailUrl: "",
+      portraitMedia: true,
       tags: ["Unity", "C#", "CSV", "Leaderboard", "Mackolik"],
     },
     {
@@ -38,8 +42,10 @@ export function UnitySection({
       title: "Solitaire Colors",
       description:
         "Took a packed Android Solitaire build, decoded and fixed it, then adapted it for mobile WebGL. Wired up ads and in-app purchases for monetization.",
-      videoUrl: "",
+      videoUrl: "/videos/Solitaire.mp4",
+      imageUrl: "",
       thumbnailUrl: "",
+      portraitMedia: false,
       tags: ["Unity", "WebGL", "IAP", "Ads", "Mobile"],
     },
     {
@@ -48,7 +54,9 @@ export function UnitySection({
       description:
         "Configured localization so the Sudoku game runs correctly across multiple languages and regional settings.",
       videoUrl: "",
+      imageUrl: "/images/sudoku.png",
       thumbnailUrl: "",
+      portraitMedia: true,
       tags: ["Unity", "Localization", "i18n"],
     },
     {
@@ -57,6 +65,7 @@ export function UnitySection({
       description:
         "A 2D game built in Unity. Features Logic Management, custom Pixel art, and a custom UI system. Fully playable in the browser via WebGL.",
       videoUrl: "",
+      imageUrl: "",
       thumbnailUrl: flapCover,
       tags: ["Unity", "C#", "WebGL"],
     },
@@ -95,31 +104,38 @@ export function UnitySection({
               viewport={{ once: true }}
               className="bg-white rounded-3xl overflow-hidden shadow-xl"
             >
-              <div
-                className={`grid gap-0 ${
-                  project.portraitVideo
-                    ? "md:grid-cols-[minmax(200px,280px)_1fr]"
-                    : "md:grid-cols-2"
-                }`}
-              >
+              <div className="grid gap-0 md:grid-cols-2">
                 <div
                   className={`relative flex items-center justify-center bg-gradient-to-br from-[#A0E7E5] to-[#7DD3C0] ${
-                    project.portraitVideo
-                      ? "p-6 md:p-8 min-h-[280px]"
-                      : "aspect-video md:aspect-auto min-h-[220px]"
+                    project.videoUrl || project.imageUrl
+                      ? "p-6"
+                      : "aspect-video md:aspect-auto"
                   }`}
+                  style={{ minHeight: 220 }}
                 >
                   {project.videoUrl ? (
                     <AdaptiveVideoPlayer
                       url={project.videoUrl}
                       thumbnail={project.thumbnailUrl || undefined}
-                      compact={!!project.portraitVideo}
+                      compact={!!project.portraitMedia}
                       preferredAspect={
-                        project.portraitVideo
+                        project.portraitMedia
                           ? "portrait"
                           : "unknown"
                       }
-                      className="w-full"
+                      style={{ width: "100%" }}
+                    />
+                  ) : project.imageUrl ? (
+                    <AdaptiveImage
+                      url={project.imageUrl}
+                      alt={project.title}
+                      compact={!!project.portraitMedia}
+                      preferredAspect={
+                        project.portraitMedia
+                          ? "portrait"
+                          : "unknown"
+                      }
+                      style={{ width: "100%" }}
                     />
                   ) : project.thumbnailUrl ? (
                     <img
