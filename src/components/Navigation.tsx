@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { useState, useEffect } from 'react';
+import { navSocialLinks } from './socialLinks';
 
 interface NavigationProps {
   currentPage: string;
@@ -40,22 +41,55 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
           <span className="text-[#7C4DFF]">Cansu's Portfolio</span>
         </motion.div>
 
-        <div className="flex gap-8">
-          {navItems.map((item) => (
-            <motion.button
-              key={item.id}
-              onClick={() => onNavigate(item.id)}
-              className={`transition-colors ${
-                currentPage === item.id
-                  ? 'text-[#7C4DFF]'
-                  : 'text-gray-600 hover:text-[#7C4DFF]'
-              }`}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {item.label}
-            </motion.button>
-          ))}
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
+            {navSocialLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <motion.a
+                  key={link.label}
+                  href={link.href}
+                  {...(link.external
+                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    : {})}
+                  aria-label={link.label}
+                  title={link.label}
+                  className="text-gray-600 hover:text-[#7C4DFF] transition-colors"
+                  whileHover={{ scale: 1.15 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Icon className="w-5 h-5" />
+                </motion.a>
+              );
+            })}
+          </div>
+
+          <span
+            aria-hidden="true"
+            style={{
+              width: 1,
+              height: 20,
+              backgroundColor: 'rgba(17, 24, 39, 0.15)',
+            }}
+          />
+
+          <div className="flex items-center gap-8">
+            {navItems.map((item) => (
+              <motion.button
+                key={item.id}
+                onClick={() => onNavigate(item.id)}
+                className={`transition-colors ${
+                  currentPage === item.id
+                    ? 'text-[#7C4DFF]'
+                    : 'text-gray-600 hover:text-[#7C4DFF]'
+                }`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {item.label}
+              </motion.button>
+            ))}
+          </div>
         </div>
       </div>
     </motion.nav>

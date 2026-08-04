@@ -6,8 +6,8 @@ export function ResumePage() {
   // LOCAL FILE: Upload to /public/documents/ and use: "/documents/resume.pdf"
   // GOOGLE DRIVE: Use "https://drive.google.com/file/d/FILE_ID/preview"
   const resumePdfUrl =
-    "https://drive.google.com/file/d/10SO4azMyaLepn92GrBNXu3o6UgBQ94zT/preview";
-
+    "https://drive.google.com/file/d/1gJKSETjJDi4x5GOjikX-rwVpXcoCFw2h/preview"
+    
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#F3E5F5] via-[#E8D5F0] to-[#DCC5E8] py-20 px-6">
       <div className="max-w-5xl mx-auto pt-16">

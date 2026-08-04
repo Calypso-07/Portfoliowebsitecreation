@@ -1,25 +1,7 @@
 import { motion } from "motion/react";
-import { Mail, Linkedin, Github, Twitter } from "lucide-react";
+import { socialLinks } from "./socialLinks";
 
 export function Footer() {
-  const socialLinks = [
-    {
-      icon: Mail,
-      href: "mailto:cansuoner2003@gmail.com",
-      label: "Email",
-    },
-    {
-      icon: Linkedin,
-      href: "https://www.linkedin.com/in/cansu-oner/",
-      label: "LinkedIn",
-    },
-    {
-      icon: Github,
-      href: "https://github.com/Calypso-07",
-      label: "GitHub",
-    },
-  ];
-
   return (
     <footer className="bg-gradient-to-br from-[#7C4DFF] to-[#A0E7E5] text-white py-12 px-6">
       <div className="max-w-6xl mx-auto">
@@ -38,14 +20,15 @@ export function Footer() {
           </p>
 
           <div className="flex justify-center gap-6">
-            {socialLinks.map((link, index) => {
+            {socialLinks.map((link) => {
               const Icon = link.icon;
               return (
                 <motion.a
-                  key={index}
+                  key={link.label}
                   href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(link.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                   className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors"
