@@ -3,9 +3,8 @@ import { ArrowRight } from "lucide-react";
 import { AdaptiveVideoPlayer } from "./AdaptiveVideoPlayer";
 import { AdaptiveImage } from "./AdaptiveImage";
 
-// Existing personal project cover
-const flapCover =
-  "https://drive.google.com/thumbnail?id=1AJpm8aEgOdSqXGCFBTQSUS_5P0-aIZla&sz=w2000";
+// Served from src/public/images/ — Google Drive throttles hotlinked thumbnails.
+const flapCover = "/images/flap-cover.png";
 
 interface UnitySectionProps {
   onNavigate: (page: string) => void;

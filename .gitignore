@@ -5,6 +5,10 @@ node_modules/
 dist/
 dist-ssr/
 
+# Packaged game builds — far over GitHub's 100 MB per-file limit.
+# Host these as a GitHub Release and point download.url at the asset.
+src/public/games/**/*.zip
+
 # Logs
 *.log
 npm-debug.log*

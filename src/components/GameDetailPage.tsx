@@ -8,15 +8,13 @@ import {
 import type { CSSProperties } from "react";
 import { AdaptiveVideoPlayer } from "./AdaptiveVideoPlayer";
 import { AdaptiveImage } from "./AdaptiveImage";
+import { GameWriteup } from "./GameWriteup";
+import { GameDownload } from "./GameDownload";
 
-const pizzaDeliveryCover =
-  "https://drive.google.com/thumbnail?id=1tsLykXWahGshQehcEniebXquvAoyeqIN&sz=w2000";
-const wistarWagerCover =
-  "https://drive.google.com/thumbnail?id=1b17wpo4-2cIDmwlUlY5jhVKvSo6orJ6y&sz=w2000";
-const godotCover =
-  "https://images.unsplash.com/photo-1745223676002-b881b2a19089?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aWRlbyUyMGdhbWUlMjBkZXZlbG9wbWVudCUyMHNjcmVlbiUyMGNvZGV8ZW58MXx8fHwxNzY5NTgyMDIzfDA&ixlib=rb-4.1.0&q=80&w=1080";
-const unityCover =
-  "https://images.unsplash.com/photo-1676263813382-bb5ba4b63f91?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml0eSUyMGdhbWUlMjBkZXZlbG9wbWVudHxlbnwxfHx8fDE3Njk1ODIwMTl8MA&ixlib=rb-4.1.0&q=80&w=1080";
+// Served from src/public/images/ — Google Drive throttles hotlinked
+// thumbnails, which made these covers fail intermittently.
+const pizzaDeliveryCover = "/images/pizza-delivery-cover.png";
+const wistarWagerCover = "/images/wistar-wager-cover.png";
 
 interface GameDetailPageProps {
   gameId: string;
@@ -29,6 +27,317 @@ export function GameDetailPage({
 }: GameDetailPageProps) {
   // Game data
   const games: Record<string, any> = {
+    "to-be-seen": {
+      title: "To Be Seen",
+      subtitle: "Narrative-Driven Puzzle-Platformer",
+      description:
+        "A heartwarming, narrative-driven puzzle-platformer that blends third-person exploration, first-person gameplay, and environmental puzzles into a story-focused experience.\n\nTo Be Seen is built around a single core mechanic explored through multiple puzzle variations, with the game split roughly evenly between puzzle-solving and platforming. Rather than constantly introducing new mechanics, the game expands the possibilities of its central mechanic and challenges the player to understand it in new ways.",
+      role: "My Role",
+      roleDescription:
+        "I have been involved with To Be Seen from the early stages of development, working across gameplay, puzzle, level, and narrative design. My focus is on connecting the individual pieces of the experience — from the core mechanic and its puzzle applications to platforming, level progression, and storytelling — so that they feel like parts of the same game rather than separate systems.",
+      features: [
+        "One core mechanic, expanded through escalating puzzle variations",
+        "Roughly even split between puzzle-solving and platforming",
+        "Shifts between first-person and third-person perspectives",
+        "Story beats placed directly into level progression",
+        "Environmental puzzles and environmental storytelling",
+      ],
+      technologies: [
+        "Unreal Engine 5",
+        "Puzzle Design",
+        "Level Design",
+        "Narrative Design",
+        "Gameplay Design",
+        "Playtesting",
+      ],
+      embedUrl: "",
+      previewUrl: "",
+      gamePageUrl: "",
+      media: [
+        {
+          type: "video",
+          // Drop the clip in src/public/videos/ and set the path here.
+          url: "",
+          title: "Gameplay",
+        },
+      ],
+      writeup: {
+        title: "Design Breakdown",
+        intro:
+          "How the core mechanic, puzzles, platforming, and story are developed together into one cohesive experience.",
+        blocks: [
+          {
+            title: "Puzzle & Gameplay Design",
+            body: [
+              "The game revolves around a single core mechanic that is used to create a variety of puzzles.",
+              "I contribute to designing and refining these puzzles by exploring new applications of the mechanic, combining it with environmental elements, and progressively increasing its complexity. The goal is to create new challenges through recontextualization rather than constantly introducing new mechanics.",
+              "I also contribute to balancing the game's puzzle-solving and platforming, including pacing, difficulty, player objectives, and how each section builds on what the player has previously learned.",
+            ],
+          },
+          {
+            title: "Narrative & Level Progression",
+            body: [
+              "Story and gameplay are developed together rather than treated as separate layers. I have been involved in shaping:",
+            ],
+            bullets: [
+              "Level and chapter progression",
+              "Story beat and narrative moment placement",
+              "Player objectives and their relationship to the story",
+              "Puzzle and platforming pacing",
+              "How gameplay progression reflects narrative progression",
+              "How individual levels contribute to the overall narrative arc",
+            ],
+            after: [
+              "I work with the team to make sure the player's journey through the levels also feels like meaningful progression through the story, creating a heartwarming experience where the player's actions naturally carry the narrative forward.",
+            ],
+          },
+          {
+            title: "Perspective & Player Experience",
+            body: [
+              "To Be Seen moves between first-person and third-person perspectives, with each perspective supporting different aspects of gameplay and exploration. I consider how perspective affects:",
+            ],
+            bullets: [
+              "Puzzle readability and interaction",
+              "Platforming and exploration",
+              "Player immersion",
+              "Environmental storytelling",
+              "Emotional and narrative moments",
+            ],
+            after: [
+              "The perspective shifts are considered as part of the overall player experience rather than simply being camera changes.",
+            ],
+          },
+          {
+            title: "Collaboration & Iteration",
+            body: [
+              "I work closely with the team throughout development to iterate on the game's core mechanic, puzzles, levels, and narrative flow.",
+              "This includes brainstorming and refining puzzle ideas, playtesting gameplay, evaluating pacing and difficulty, and ensuring that gameplay challenges, story beats, and level progression work together cohesively.",
+            ],
+          },
+        ],
+      },
+      links: [],
+    },
+    "tank-arena": {
+      title: "Tank Arena",
+      subtitle: "2-Player Local Arcade Tank Battle",
+      description:
+        "A fast-paced 2-player arcade tank battle built entirely from scratch in Unreal Engine.\n\nInspired by classic arcade tank games, Tank Arena puts two players head-to-head in a timed battle. One player controls their tank using a keyboard, while the other uses a game controller. Players score by successfully hitting their opponent, and the player with the highest score when the timer runs out wins the match.\n\nThe project was developed from the ground up, covering everything from player controls and combat systems to projectile behaviors, power-ups, VFX, SFX, scoring, and complete match flow.",
+      role: "My Contributions",
+      roleDescription:
+        "I was responsible for the game's implementation from concept to playable build, including gameplay programming, Blueprint development, systems design, player controls, combat mechanics, power-ups, VFX/SFX integration, and game flow. Each major gameplay feature required its own logic, interactions, and integration into the overall game loop.",
+      features: [
+        "Complete arcade combat game built from scratch",
+        "Three distinct projectile behaviors: standard, bouncing, and guided",
+        "Four power-ups: shield, invincibility, speed boost, and big bullet",
+        "Local multiplayer across keyboard and controller input",
+        "VFX and SFX integrated as gameplay feedback",
+        "Full loop from input to combat, scoring, and match completion",
+      ],
+      technologies: [
+        "Unreal Engine 5",
+        "Blueprints",
+        "Gameplay Programming",
+        "Local Multiplayer",
+        "VFX",
+        "SFX",
+      ],
+      embedUrl: "",
+      previewUrl: "",
+      gamePageUrl: "",
+      download: {
+        title: "Play Tank Arena",
+        notice:
+          "Tank Arena is a local 2-player game — there is no AI opponent and no single-player mode. Both tanks are driven by people sitting at the same machine, so you need a second player with a game controller. If you launch it alone, the second tank simply will not move.",
+        url: "https://github.com/Calypso-07/Portfoliowebsitecreation/releases/download/tank-arena/TankArena-Windows.zip",
+        fileName: "TankArena-Windows.zip",
+        size: "331 MB",
+        requirements: [
+          "A Windows PC",
+          "A keyboard for Player 1",
+          "A game controller for Player 2 (Xbox or PlayStation style)",
+          "Two people — the second tank has no AI",
+        ],
+        players: [
+          {
+            name: "Player 1 — Keyboard",
+            device: "keyboard",
+            controls: [
+              "WASD to move and aim the tank",
+              "Fire to score hits on the opposing tank",
+              "WASD also steers the guided projectile after firing",
+            ],
+          },
+          {
+            name: "Player 2 — Game Controller",
+            device: "controller",
+            controls: [
+              "Analog stick to move and aim the tank",
+              "Trigger / face button to fire",
+            ],
+          },
+        ],
+        steps: [
+          "Download and unzip the archive anywhere on your PC.",
+          "Plug in a game controller before launching, so Player 2 is picked up.",
+          "Run the .exe inside the extracted folder.",
+          "Both players score by hitting the other tank — highest score when the timer hits zero wins.",
+        ],
+      },
+      media: [
+        {
+          type: "video",
+          // Drop a match clip in src/public/videos/ and set the path here.
+          url: "",
+          title: "Match Gameplay",
+        },
+      ],
+      writeup: {
+        title: "Project Breakdown",
+        intro:
+          "Every system in Tank Arena — controls, combat, projectiles, power-ups, scoring, and match flow — was built from the ground up in Unreal Engine.",
+        blocks: [
+          {
+            title: "Gameplay",
+            blocks: [
+              {
+                title: "2-Player Local Multiplayer",
+                body: [
+                  "Two players compete simultaneously using different input devices. The keyboard and controller inputs are independently mapped to their respective tanks, allowing both players to move, aim, fire, and react in real time.",
+                  "The match is built around a simple arcade loop — move, attack, dodge, score, repeat — with a countdown timer determining the end of the round.",
+                ],
+              },
+              {
+                title: "Three Unique Projectile Types",
+                body: [
+                  "The combat system features three distinct bullet behaviors, each requiring a different approach from the player:",
+                ],
+                bullets: [
+                  {
+                    label: "Standard Bullet",
+                    text: "A straightforward projectile that travels directly toward the opponent.",
+                  },
+                  {
+                    label: "Bouncing Bullet",
+                    text: "Ricochets off the environment, allowing players to attack from unexpected angles and create indirect shots.",
+                  },
+                  {
+                    label: "Guided Bullet",
+                    text: "A controllable projectile that can be steered using WASD, giving players additional control after firing.",
+                  },
+                ],
+              },
+              {
+                title: "Power-Up System",
+                body: [
+                  "Power-ups appear during the match and temporarily change the player's capabilities, creating opportunities to turn the fight around.",
+                ],
+                bullets: [
+                  {
+                    label: "Shield",
+                    text: "Protects the player from incoming damage for a limited duration.",
+                  },
+                  {
+                    label: "Invincibility",
+                    text: "Makes the player completely immune to attacks temporarily.",
+                  },
+                  {
+                    label: "Speed Boost",
+                    text: "Temporarily increases tank movement speed.",
+                  },
+                  {
+                    label: "Big Bullet",
+                    text: "Increases projectile size, making attacks more impactful and easier to land.",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            title: "Combat & Game Systems",
+            body: [
+              "The entire gameplay loop was implemented from scratch, including:",
+            ],
+            bullets: [
+              "Player movement and shooting",
+              "Keyboard and controller input",
+              "Projectile spawning and behavior",
+              "Collision and hit detection",
+              "Damage and health systems",
+              "Projectile-specific interactions",
+              "Power-up spawning and activation",
+              "Temporary status effects and durations",
+              "Score tracking and match timer",
+              "Win-condition logic, round and end-of-match flow",
+            ],
+            after: [
+              "The systems were built to work together as a cohesive gameplay framework rather than as isolated mechanics.",
+            ],
+          },
+          {
+            title: "VFX & SFX",
+            body: [
+              "To make combat feel more responsive and readable, gameplay events are supported by visual and audio feedback. VFX and SFX were integrated directly into the gameplay systems so that important combat events communicate clearly to the player.",
+            ],
+            blocks: [
+              {
+                title: "Visual Effects",
+                bullets: [
+                  "Projectile trails",
+                  "Bullet impact effects",
+                  "Hit feedback",
+                  "Combat effects",
+                ],
+              },
+              {
+                title: "Sound Effects",
+                bullets: [
+                  "Weapon firing",
+                  "Projectile impacts",
+                  "Gameplay feedback",
+                ],
+              },
+            ],
+          },
+          {
+            title: "Technical Implementation",
+            blocks: [
+              {
+                title: "Built From Scratch",
+                body: [
+                  "This project involved building the game from the ground up in Unreal Engine, with extensive use of Blueprints and gameplay code.",
+                  "Rather than relying on pre-built gameplay systems, I implemented the core mechanics and interactions myself, including player controls, combat, projectile logic, power-ups, scoring, and match progression.",
+                ],
+              },
+              {
+                title: "Modular Gameplay Systems",
+                body: [
+                  "The different projectile types and power-ups were implemented as separate gameplay systems, allowing each mechanic to have its own behavior while integrating with the shared combat framework.",
+                  "This made it possible to introduce different attack behaviors and temporary player effects without rebuilding the core combat system for every mechanic.",
+                ],
+              },
+              {
+                title: "Input System",
+                body: [
+                  "Implemented support for two simultaneous players using different control schemes:",
+                ],
+                bullets: [
+                  {
+                    label: "Player 1",
+                    text: "Keyboard / WASD",
+                  },
+                  {
+                    label: "Player 2",
+                    text: "Game Controller",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      links: [],
+    },
     "pizza-delivery": {
       title: "Pizza Delivery - Zombies Eat Free",
       subtitle: "Game Jam FPS Experience",
@@ -516,6 +825,9 @@ private void PinEnemyWorldScale()
           )}
         </motion.div>
 
+        {/* Downloadable desktop build (Unreal packages to .exe, not to web) */}
+        {game.download && <GameDownload info={game.download} />}
+
         {/* Embed / Play Section */}
         {game.embedUrl && (
           <motion.div
@@ -567,11 +879,26 @@ private void PinEnemyWorldScale()
                   </div>
 
                   {isItchEmbed && (
-                    <div className="bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3 rounded-xl text-sm">
-                      <p className="font-semibold mb-1">
+                    <div
+                      style={{
+                        background: "#FFFBEB",
+                        border: "1px solid #FDE68A",
+                        color: "#92400E",
+                        padding: "0.75rem 1rem",
+                        borderRadius: "0.75rem",
+                        fontSize: "0.875rem",
+                        lineHeight: 1.6,
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontWeight: 600,
+                          marginBottom: "0.25rem",
+                        }}
+                      >
                         Game not loading?
                       </p>
-                      <p>
+                      <p style={{ margin: 0 }}>
                         Use the <strong>Embed Game</strong> URL
                         from itch.io Dashboard → Edit Game →
                         Distribute (embed-upload), not the widget
@@ -678,6 +1005,9 @@ private void PinEnemyWorldScale()
                 ))}
             </motion.div>
           )}
+
+        {/* Long-form design / project breakdown */}
+        {game.writeup && <GameWriteup writeup={game.writeup} />}
 
         {/* Technical Case Study */}
         {game.caseStudy && (

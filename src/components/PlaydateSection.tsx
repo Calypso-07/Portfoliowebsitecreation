@@ -2,7 +2,8 @@ import { motion } from "motion/react";
 import { Play, FileText, Download } from "lucide-react";
 import { useState } from "react";
 
-const crankAdventureThumbnail = "https://drive.google.com/thumbnail?id=1anG4k-BFGPb5L9iv5zJG3K0_ZoJ0T5u8&sz=w2000"; // crank adventure
+// Served from src/public/images/ — Google Drive throttles hotlinked thumbnails.
+const crankAdventureThumbnail = "/images/playdate-mail-delivery.png";
 
 export function PlaydateSection() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);

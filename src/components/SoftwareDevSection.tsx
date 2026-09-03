@@ -2,7 +2,8 @@ import { motion } from "motion/react";
 import { Play, ExternalLink, Github } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
-const styleShifterImage = "https://drive.google.com/thumbnail?id=1qkdWRrBbMdkdGln41dtvsxWdURhKhFqQ&sz=w2000"; // style shifter
+// Served from src/public/images/ — Google Drive throttles hotlinked thumbnails.
+const styleShifterImage = "/images/style-shifter.png";
 
 export function SoftwareDevSection() {
   const projects = [

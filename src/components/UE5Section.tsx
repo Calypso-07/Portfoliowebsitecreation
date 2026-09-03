@@ -2,8 +2,12 @@ import { motion } from "motion/react";
 import { Play, ArrowRight } from "lucide-react";
 import { useState } from "react";
 
-const pizzaDeliveryCover = "https://drive.google.com/thumbnail?id=1tsLykXWahGshQehcEniebXquvAoyeqIN&sz=w2000";
-const wistarWagerCover = "https://drive.google.com/thumbnail?id=1b17wpo4-2cIDmwlUlY5jhVKvSo6orJ6y&sz=w2000";
+// Served from src/public/images/ — Google Drive throttles hotlinked
+// thumbnails, which made these covers fail intermittently.
+const pizzaDeliveryCover = "/images/pizza-delivery-cover.png";
+const wistarWagerCover = "/images/wistar-wager-cover.png";
+const toBeSeenCover = "/images/to-be-seen-cover.png";
+const tankArenaCover = "/images/tank-arena-cover.png";
 
 interface UE5SectionProps {
   onNavigate: (page: string) => void;
@@ -16,6 +20,48 @@ export function UE5Section({ onNavigate }: UE5SectionProps) {
 
   const projects = [
     {
+      id: "to-be-seen",
+      title: "To Be Seen",
+      description:
+        "A heartwarming, narrative-driven puzzle-platformer blending third-person exploration, first-person gameplay, and environmental puzzles. Built around a single core mechanic explored through escalating puzzle variations. I work across gameplay, puzzle, level, and narrative design.",
+      videoUrl: "",
+      thumbnailUrl: toBeSeenCover,
+      tags: [
+        "Unreal Engine 5",
+        "Puzzle Design",
+        "Level Design",
+        "Narrative Design",
+      ],
+    },
+    {
+      id: "tank-arena",
+      title: "Tank Arena",
+      description:
+        "A fast-paced 2-player local arcade tank battle built entirely from scratch in Unreal Engine. One player on keyboard, one on a controller, three projectile types, four power-ups, and a full timed match loop with scoring.",
+      videoUrl: "",
+      thumbnailUrl: tankArenaCover,
+      tags: [
+        "Unreal Engine 5",
+        "Blueprints",
+        "Local Multiplayer",
+        "VFX / SFX",
+      ],
+    },
+    {
+      id: "wistar-wager",
+      title: "Wistar Wager",
+      description:
+        "An escape the facility game made using puzzles and platformers. It is a term long game project made by a 6 people team. I implemented blueprints, did level design, Audio Design, and built 2 levels in Unreal Engine 5.",
+      videoUrl: "",
+      thumbnailUrl: wistarWagerCover,
+      tags: [
+        "Unreal Engine 5",
+        "Blueprints",
+        "Level Design",
+        "Audio Design",
+      ],
+    },
+    {
       id: "pizza-delivery",
       title: "Pizza Delivery - Zombies Eat Free",
       description:
@@ -27,14 +73,7 @@ export function UE5Section({ onNavigate }: UE5SectionProps) {
       // LOCAL IMAGE: Upload to /public/images/ and use: "/images/thumbnail.png"
       // OR use any image URL
       thumbnailUrl: pizzaDeliveryCover,
-    },
-    {
-      id: "wistar-wager",
-      title: "Wistar Wager",
-      description:
-        "An escape the facility game made using puzzles and platformers. It is a term long game project made by a 6 people team. I implemented blueprints, did level design, Audio Design, and built 2 levels in Unreal Engine 5.",
-      videoUrl: "",
-      thumbnailUrl: wistarWagerCover,
+      tags: ["Unreal Engine 5", "Blueprints", "C++", "Game Jam"],
     },
   ];
 
@@ -130,8 +169,16 @@ export function UE5Section({ onNavigate }: UE5SectionProps) {
                           <Play className="w-8 h-8 text-[#7C4DFF] ml-1" />
                         </motion.div>
                       ) : (
-                        <div className="text-white/80 text-center p-6">
-                          <p>Add your video URL</p>
+                        <div className="relative z-10 text-white/90 text-center p-6 px-8">
+                          <p
+                            className="mb-1"
+                            style={{ fontWeight: 600 }}
+                          >
+                            {project.title}
+                          </p>
+                          <p className="text-sm text-white/70">
+                            {`Add cover: /images/${project.id}-cover.png`}
+                          </p>
                         </div>
                       )}
                       {project.videoUrl && (
@@ -161,18 +208,14 @@ export function UE5Section({ onNavigate }: UE5SectionProps) {
                   </motion.button>
                   
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-[#A0E7E5]/20 text-[#2D8B8A] rounded-full text-sm">
-                      Blueprints
-                    </span>
-                    <span className="px-3 py-1 bg-[#A0E7E5]/20 text-[#2D8B8A] rounded-full text-sm">
-                      C++
-                    </span>
-                    <span className="px-3 py-1 bg-[#A0E7E5]/20 text-[#2D8B8A] rounded-full text-sm">
-                      Nanite
-                    </span>
-                    <span className="px-3 py-1 bg-[#A0E7E5]/20 text-[#2D8B8A] rounded-full text-sm">
-                      Lumen
-                    </span>
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 bg-[#A0E7E5]/20 text-[#2D8B8A] rounded-full text-sm"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>

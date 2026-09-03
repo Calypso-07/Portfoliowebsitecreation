@@ -2,9 +2,8 @@ import { motion } from "motion/react";
 import { Play, ArrowRight } from "lucide-react";
 import { useState } from "react";
 
-// Placeholder image from Unsplash
-const godotCover =
-  "https://drive.google.com/thumbnail?id=1CcSVh1lHAmtomNWu5JBf-LYjI780sEy6&sz=w2000";
+// Served from src/public/images/ — Google Drive throttles hotlinked thumbnails.
+const godotCover = "/images/botnet-cover.png";
 
 interface GodotSectionProps {
   onNavigate: (page: string) => void;

@@ -1,11 +1,13 @@
 import { motion } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
-const artworkImage = "https://drive.google.com/thumbnail?id=1Z2xEEax02kbXh2PDG5ru-zZalM3JlAdw&sz=w2000"; // king
-const luffyArtwork = "https://drive.google.com/thumbnail?id=1d6RRNN_R2i89gPyow8N9u6UqO1_9J6De&sz=w2000"; // luffy
-const dekuArtwork = "https://drive.google.com/thumbnail?id=1CDuhYVE4A45IiHTjBAmFUychvGEvLzUI&sz=w2000"; // deku
-const originalCharacter = "https://drive.google.com/thumbnail?id=1pUZ9xkcHAJ67SCeB9XdwHB58alipwFg3&sz=w2000"; // original
-const lemurArtwork = "https://drive.google.com/thumbnail?id=1kfQJBFHcwB2vlAOeYkOHVzWvYicbalze&sz=w2000"; // lemur
+// Served from src/public/images/ — Google Drive throttles hotlinked
+// thumbnails, which made these fail intermittently.
+const artworkImage = "/images/artwork-king.png";
+const luffyArtwork = "/images/artwork-luffy.png";
+const dekuArtwork = "/images/artwork-deku.png";
+const originalCharacter = "/images/artwork-dtiys.png";
+const lemurArtwork = "/images/artwork-momo.png";
 
 export function ArtworkSection() {
   const artworks = [
