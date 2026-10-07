@@ -13,17 +13,28 @@ interface UE5SectionProps {
   onNavigate: (page: string) => void;
 }
 
+interface UE5Project {
+  id: string;
+  title: string;
+  role?: string;
+  description: string;
+  videoUrl: string;
+  thumbnailUrl: string;
+  tags: string[];
+}
+
 export function UE5Section({ onNavigate }: UE5SectionProps) {
   const [playingVideo, setPlayingVideo] = useState<
     number | null
   >(null);
 
-  const projects = [
+  const projects: UE5Project[] = [
     {
       id: "to-be-seen",
       title: "To Be Seen",
+      role: "Level Design Lead",
       description:
-        "A heartwarming, narrative-driven puzzle-platformer blending third-person exploration, first-person gameplay, and environmental puzzles. Built around a single core mechanic explored through escalating puzzle variations. I work across gameplay, puzzle, level, and narrative design.",
+        "A heartwarming, narrative-driven puzzle-platformer blending third-person exploration, first-person gameplay, and environmental puzzles. As Design Lead, I work across level layout, player flow, narrative, puzzle design, and implementation, translating multidisciplinary ideas into playable spaces. I whitebox and iterate levels in Unreal Engine 5 and prototype gameplay and puzzle systems through Blueprints.",
       videoUrl: "",
       thumbnailUrl: toBeSeenCover,
       tags: [
@@ -34,24 +45,10 @@ export function UE5Section({ onNavigate }: UE5SectionProps) {
       ],
     },
     {
-      id: "tank-arena",
-      title: "Tank Arena",
-      description:
-        "A fast-paced 2-player local arcade tank battle built entirely from scratch in Unreal Engine. One player on keyboard, one on a controller, three projectile types, four power-ups, and a full timed match loop with scoring.",
-      videoUrl: "",
-      thumbnailUrl: tankArenaCover,
-      tags: [
-        "Unreal Engine 5",
-        "Blueprints",
-        "Local Multiplayer",
-        "VFX / SFX",
-      ],
-    },
-    {
       id: "wistar-wager",
       title: "Wistar Wager",
       description:
-        "An escape the facility game made using puzzles and platformers. It is a term long game project made by a 6 people team. I implemented blueprints, did level design, Audio Design, and built 2 levels in Unreal Engine 5.",
+        "A semester-long escape-the-facility puzzle-platformer developed by a six-person team. I designed one level and built two levels in Unreal Engine 5, focusing on player flow, mechanical clarity, and readable traversal. I also contributed to Blueprint implementation and audio design.",
       videoUrl: "",
       thumbnailUrl: wistarWagerCover,
       tags: [
@@ -65,7 +62,7 @@ export function UE5Section({ onNavigate }: UE5SectionProps) {
       id: "pizza-delivery",
       title: "Pizza Delivery - Zombies Eat Free",
       description:
-        "A first person shooter game made by me and 5 classmates in a Game Jam. The player need to deliver pizza in a zombie apocalypse to earn enough money to leave the town. He need to kill the zombies, but the gun shoots money, your health bar is your money, everything is money. The theme of the game jam was Pay to Win.",
+        "A first-person shooter created by a six-person team for a game jam themed “Pay to Win.” I designed combat spaces around cover placement, zombie spawn locations, movement, and encounter pacing, while contributing to gameplay implementation in Unreal Engine 5. The central mechanic turns money into health, ammunition, and the resource the player needs to escape the town.",
       // LOCAL FILE: Upload your video to /public/videos/ and use: "/videos/your-video.mp4"
       // YOUTUBE: Use "https://www.youtube.com/embed/YOUR_VIDEO_ID"
       // VIMEO: Use "https://player.vimeo.com/video/YOUR_VIDEO_ID"
@@ -74,6 +71,20 @@ export function UE5Section({ onNavigate }: UE5SectionProps) {
       // OR use any image URL
       thumbnailUrl: pizzaDeliveryCover,
       tags: ["Unreal Engine 5", "Blueprints", "C++", "Game Jam"],
+    },
+    {
+      id: "tank-arena",
+      title: "Tank Arena",
+      description:
+        "A 2-player local arcade tank battle built from scratch in Unreal Engine, featuring two maps, six game modes, three projectile types, and four gameplay power-ups. I developed the local multiplayer framework, combat interactions, scoring, match flow, and custom VFX/SFX.",
+      videoUrl: "",
+      thumbnailUrl: tankArenaCover,
+      tags: [
+        "Unreal Engine 5",
+        "Blueprints",
+        "Local Multiplayer",
+        "VFX / SFX",
+      ],
     },
   ];
 
@@ -94,14 +105,13 @@ export function UE5Section({ onNavigate }: UE5SectionProps) {
             Unreal Engine 5
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            I am currently learning how to make games in the
-            unreal engine 5 in my master’s degree, using
-            blueprints. I created multiple levels with switches,
-            casting interfaces using different collision
-            settings and personalized meshes. I am improving
-            each day on how to use this incredible tool in a
-            more efficient manner. I also work with perforce,
-            creating a game with a team of 6.
+            I use Unreal Engine 5 to design and implement
+            gameplay spaces, level flow, puzzles, and gameplay
+            systems through Blueprints and C++. My work ranges
+            from whiteboxing and spatial design to mechanics
+            prototyping, multiplayer gameplay, and iteration
+            based on playtesting. I also work with Perforce in
+            multidisciplinary development teams.
           </p>
         </motion.div>
 
@@ -191,9 +201,19 @@ export function UE5Section({ onNavigate }: UE5SectionProps) {
                 </div>
 
                 <div className="p-8 flex flex-col justify-center">
-                  <h3 className="mb-4 text-gray-800">
+                  <h3
+                    className={`text-gray-800 ${project.role ? "mb-1" : "mb-4"}`}
+                  >
                     {project.title}
                   </h3>
+                  {project.role && (
+                    <p
+                      className="text-[#7C4DFF] mb-4"
+                      style={{ fontWeight: 600 }}
+                    >
+                      {project.role}
+                    </p>
+                  )}
                   <p className="text-gray-600 mb-4">
                     {project.description}
                   </p>

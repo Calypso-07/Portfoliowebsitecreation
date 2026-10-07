@@ -46,9 +46,9 @@ export function PlaydateSection() {
             Playdate Development
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            My journey in developing games for the Playdate
-            handheld console, featuring unique gameplay
-            mechanics and creative use of the crank controller.
+            Experimental game design work for the Playdate,
+            exploring how unconventional hardware and the crank
+            input can become part of the core gameplay mechanic.
           </p>
         </motion.div>
 
@@ -130,11 +130,11 @@ export function PlaydateSection() {
                 Mail Delivery Demo
               </h3>
               <p className="text-gray-600 mb-4">
-                A mail delivery game that creatively uses the
-                Playdate's unique crank mechanism for character
-                movement and environmental interactions.
-                Features hand-drawn art and smooth 1-bit
-                graphics.
+                A mail-delivery game built around the Playdate’s
+                crank input. The player rides through a
+                neighborhood, avoids obstacles, and times
+                deliveries while using the crank to control
+                movement and speed.
               </p>
               <div className="flex flex-wrap gap-2">
                 <span className="px-3 py-1 bg-[#D4BBDD]/30 text-[#6B4C8A] rounded-full text-sm">
@@ -167,16 +167,16 @@ export function PlaydateSection() {
                     Project Description
                   </h4>
                   <p className="text-gray-600 mb-4">
-                    I worked on the game “Mail Delivery” which
-                    is still in progress. The player uses the
-                    Playdate console to deliver post to the
-                    neighborhood. They need to avoid obstacles
-                    while being precise on sending the mail,
-                    they can speed up by using the crank, which
-                    represents the bike that the character
-                    rides. Also there is a cute owl companion
-                    which helps with the delivery every time an
-                    owl food is acquired on the road.
+                    I designed the game around the Playdate’s
+                    hardware rather than treating the crank as
+                    an extra input. The crank represents the
+                    character’s bicycle and directly affects
+                    movement and speed, while delivery timing
+                    and obstacle avoidance create the main
+                    gameplay challenge. The project also
+                    features hand-drawn 1-bit artwork and an owl
+                    companion that supports the delivery
+                    mechanic.
                   </p>
                   <p className="text-gray-600">
                     Development focused on optimizing
@@ -231,13 +231,14 @@ export function PlaydateSection() {
           viewport={{ once: true }}
           className="bg-gradient-to-r from-[#D4BBDD] to-[#B794C4] rounded-3xl p-8 text-center"
         >
-          <h3 className="mb-3 text-white">Why Playdate?</h3>
+          <h3 className="mb-3 text-white">Design Goal</h3>
           <p className="text-white/90 max-w-3xl mx-auto">
-            The Playdate console represents a unique challenge
-            in game development, combining retro aesthetics with
-            innovative input mechanics. This project showcases
-            my ability to work within hardware constraints while
-            creating engaging gameplay experiences.
+            I was interested in designing around a constraint
+            that does not exist on conventional controllers.
+            Instead of adding the crank after the mechanic was
+            designed, I wanted the physical action of turning it
+            to be part of how the player understands and
+            controls the game.
           </p>
         </motion.div>
       </div>

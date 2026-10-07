@@ -30,20 +30,23 @@ export function GameDetailPage({
     "to-be-seen": {
       title: "To Be Seen",
       subtitle: "Narrative-Driven Puzzle-Platformer",
+      credit: "Level Design Lead",
       description:
-        "A heartwarming, narrative-driven puzzle-platformer that blends third-person exploration, first-person gameplay, and environmental puzzles into a story-focused experience.\n\nTo Be Seen is built around a single core mechanic explored through multiple puzzle variations, with the game split roughly evenly between puzzle-solving and platforming. Rather than constantly introducing new mechanics, the game expands the possibilities of its central mechanic and challenges the player to understand it in new ways.",
+        "To Be Seen follows a girl who leaves home to live with grief: the people she loves, remembered from their side of the story, and the quiet work of starting again. Between those memories, a storybook third-person world lets you platform through the past. The fragments you find can be haunted, and haunting them pulls you back in time, into first person. One mechanic, blur and unblur, carries the puzzles and the feeling. I am Level Design Lead. The sections below are the spaces, the system, and the art that work is built on.",
       role: "My Role",
       roleDescription:
-        "I have been involved with To Be Seen from the early stages of development, working across gameplay, puzzle, level, and narrative design. My focus is on connecting the individual pieces of the experience — from the core mechanic and its puzzle applications to platforming, level progression, and storytelling — so that they feel like parts of the same game rather than separate systems.",
+        "I am Level Design Lead on To Be Seen. I shape the first-person memory spaces, the blur and unblur system those spaces are built on, and the seasonal pop-up book that holds the third-person world.",
       features: [
-        "One core mechanic, expanded through escalating puzzle variations",
-        "Roughly even split between puzzle-solving and platforming",
-        "Shifts between first-person and third-person perspectives",
-        "Story beats placed directly into level progression",
-        "Environmental puzzles and environmental storytelling",
+        "First-person memory levels told through the space itself",
+        "One blur and unblur mechanic, used once or set to ping-pong",
+        "A storybook third-person world between those memories",
+        "A four-season pop-up book for the third-person world",
+        "Environmental storytelling carried by layout and ambience",
       ],
       technologies: [
         "Unreal Engine 5",
+        "Blueprints",
+        "Maya",
         "Puzzle Design",
         "Level Design",
         "Narrative Design",
@@ -53,65 +56,70 @@ export function GameDetailPage({
       embedUrl: "",
       previewUrl: "",
       gamePageUrl: "",
-      media: [
-        {
-          type: "video",
-          // Drop the clip in src/public/videos/ and set the path here.
-          url: "",
-          title: "Gameplay",
-        },
-      ],
+      heroVideo: {
+        url: "/videos/Tp1.mp4",
+        aspect: "landscape",
+        loopMuted: true,
+      },
+      media: [],
       writeup: {
         title: "Design Breakdown",
-        intro:
-          "How the core mechanic, puzzles, platforming, and story are developed together into one cohesive experience.",
         blocks: [
           {
-            title: "Puzzle & Gameplay Design",
+            title: "First Person Levels",
             body: [
-              "The game revolves around a single core mechanic that is used to create a variety of puzzles.",
-              "I contribute to designing and refining these puzzles by exploring new applications of the mechanic, combining it with environmental elements, and progressively increasing its complexity. The goal is to create new challenges through recontextualization rather than constantly introducing new mechanics.",
-              "I also contribute to balancing the game's puzzle-solving and platforming, including pacing, difficulty, player objectives, and how each section builds on what the player has previously learned.",
+              "These levels are the memories. Each one steps a little further back, and the story stays in the room.",
+            ],
+            blocks: [
+              {
+                title: "The Studio",
+                video: {
+                  url: "/videos/to-be-seen-studio.mp4",
+                  title: "The Studio",
+                },
+                body: [
+                  "The first memory is the studio she moves into. The objects she picked up while traveling are still out. So are the notes she writes to herself, and the ones she writes to her family. A phone rings in the background the whole time. You want to answer it. You cannot. Is it actually ringing, or do you only need it to be?",
+                  "That question is the level. It is the pull toward family and toward anyone who would pick up, in a home that is slowly coming apart: the first time she has lived alone, and the sense that one step is left and she could still turn around. I put that in the art direction, the ambience, and how the apartment is laid out. The game leans on environmental storytelling, and the depth of it is in what you stop to look at.",
+                ],
+              },
+              {
+                title: "The Airport",
+                // Drop the clip at src/public/videos/to-be-seen-airport.mp4
+                video: { url: "", title: "The Airport" },
+                body: [
+                  "The next memory reaches further back. The first time she leaves. The airport, when it is time to keep walking. The people around her are silhouettes. You do not remember a single face, because the only faces you want are your family’s, and your older brother’s. They are not there.",
+                  "Time does not seem to move. Everyone is frozen. You walk, and the people ahead of you do not. You blur them to get past, and then again, and again. A postcard seems to call you over. On it is the mountain you already saw in third person. Yes. It is calling. You are going to write home. This is not a goodbye that lasts forever.",
+                ],
+              },
             ],
           },
           {
-            title: "Narrative & Level Progression",
+            title: "Programming",
             body: [
-              "Story and gameplay are developed together rather than treated as separate layers. I have been involved in shaping:",
+              "Blur and unblur is the mechanic the game stands on. To make it scale, I made a base actor so any child of that actor can be blurrable when a level needs it. We also built a signal-receiver Blueprint, so a different button can drive the same mechanic in third person when the moment asks for it. Used once, or set to ping-pong, it is the cornerstone of how the game is played.",
             ],
-            bullets: [
-              "Level and chapter progression",
-              "Story beat and narrative moment placement",
-              "Player objectives and their relationship to the story",
-              "Puzzle and platforming pacing",
-              "How gameplay progression reflects narrative progression",
-              "How individual levels contribute to the overall narrative arc",
-            ],
-            after: [
-              "I work with the team to make sure the player's journey through the levels also feels like meaningful progression through the story, creating a heartwarming experience where the player's actions naturally carry the narrative forward.",
+            images: [
+              {
+                url: "/images/BaseProp.png",
+                alt: "BP_BaseProp event graph",
+              },
+              {
+                url: "/images/BaseProp2.png",
+                alt: "BP_BaseProp2 blur settings",
+              },
             ],
           },
           {
-            title: "Perspective & Player Experience",
+            title: "Technical Art",
+            kicker: "I go beyond placeholders",
+            video: {
+              url: "/videos/to-be-seen-popup-book.mp4",
+              title: "Pop-up book",
+              loopMuted: true,
+            },
             body: [
-              "To Be Seen moves between first-person and third-person perspectives, with each perspective supporting different aspects of gameplay and exploration. I consider how perspective affects:",
-            ],
-            bullets: [
-              "Puzzle readability and interaction",
-              "Platforming and exploration",
-              "Player immersion",
-              "Environmental storytelling",
-              "Emotional and narrative moments",
-            ],
-            after: [
-              "The perspective shifts are considered as part of the overall player experience rather than simply being camera changes.",
-            ],
-          },
-          {
-            title: "Collaboration & Iteration",
-            body: [
-              "I work closely with the team throughout development to iterate on the game's core mechanic, puzzles, levels, and narrative flow.",
-              "This includes brainstorming and refining puzzle ideas, playtesting gameplay, evaluating pacing and difficulty, and ensuring that gameplay challenges, story beats, and level progression work together cohesively.",
+              "The first page of a pop-up book she and her brother loved looking through when they were children. Four pages, four seasons. The third-person world is told through those seasons, and each season stands for someone in the family. Summer comes from my hometown, Antalya.",
+              "His room was assigned to me as a level-design task, so I took the book with it. I wanted to build it myself, and I learned Maya to do it. It is a piece I am proud of.",
             ],
           },
         ],
@@ -342,7 +350,7 @@ export function GameDetailPage({
       title: "Pizza Delivery - Zombies Eat Free",
       subtitle: "Game Jam FPS Experience",
       description:
-        "A first person shooter game made by me and 5 classmates in a Game Jam. The player need to deliver pizza in a zombie apocalypse to earn enough money to leave the town. He need to kill the zombies, but the gun shoots money, your health bar is your money, everything is money. The theme of the game jam was Pay to Win.",
+        "A first-person shooter created by a six-person team for a game jam themed “Pay to Win.” I designed combat spaces around cover placement, zombie spawn locations, movement, and encounter pacing, while contributing to gameplay implementation in Unreal Engine 5. The central mechanic turns money into health, ammunition, and the resource the player needs to escape the town.",
       role: "My Role",
       roleDescription:
         "I worked on gameplay mechanics, weapon systems, and UI implementation. I was responsible for creating the unique money-as-ammo system, integration of the new gun model to the system, addition of sound cues, and the enemy spawner. I made sure the enemies spawn correctly, were able to move around after spawning, and their increase in number would make the game harder with time but not impossible. ",
@@ -376,7 +384,7 @@ export function GameDetailPage({
       title: "Wistar Wager",
       subtitle: "Escape Facility Puzzle-Platformer",
       description:
-        "An escape the facility game made using puzzles and platformers. It is a term long game project made by a 6 people team. I implemented blueprints, did level design, Audio Design, and built 2 levels in Unreal Engine 5.",
+        "A semester-long escape-the-facility puzzle-platformer developed by a six-person team. I designed one level and built two levels in Unreal Engine 5, focusing on player flow, mechanical clarity, and readable traversal. I also contributed to Blueprint implementation and audio design.",
       role: "My Contributions",
       roleDescription:
         "As a key member of the development team, I was responsible for implementing blueprint logic, designing a complete level and building two, creating the audio landscape, and ensuring smooth gameplay flow through careful level design.",
@@ -568,10 +576,10 @@ private void PinEnemyWorldScale()
       title: "Trivia Football",
       subtitle: "Football Trivia — Internship Project",
       description:
-        "A football-themed trivia game shipped on Mackolik, one of Turkey’s most widely used sports platforms. Questions are loaded from CSV. The run has three stages with rising difficulty and score weighting, four lifelines (50/50, double answer, ask the audience, and pass), a how-to-play screen, and a dynamic leaderboard with weekly, monthly, and all-time rankings — plus your own rank pinned at the bottom.",
+        "Trivia Football is a football trivia game I designed and developed end-to-end in Unity for Maçkolik, one of Turkey’s largest sports platforms. I was responsible for the gameplay flow, UI layout and implementation, question system, progression, lifelines, scoring, and leaderboard features, taking the project from an initial concept through testing and live release.\n\nQuestions are loaded through a CSV-based content pipeline, with three stages that increase in difficulty and score value. I implemented four distinct lifelines, player feedback and instructional UI, and dynamic weekly, monthly, and all-time leaderboards.\n\nA significant part of the project was also production debugging. I worked through platform-specific issues that appeared after integration with Maçkolik, including UI and fullscreen behavior on iOS devices, and iterated on the game until it behaved consistently across the target environments.",
       role: "Unity Developer Intern",
       roleDescription:
-        "Built the game end-to-end: CSV question pipeline, lifeline systems, staged difficulty and scoring, leaderboard UX, how-to-play flow, and the final production build for Mackolik.",
+        "Built the game end-to-end: CSV question pipeline, lifeline systems, staged difficulty and scoring, leaderboard UX, how-to-play flow, and the final production build for Maçkolik.",
       features: [
         "Questions loaded from CSV",
         "Four lifelines: 50/50, Double Answer, Ask the Audience, Pass",
@@ -579,7 +587,7 @@ private void PinEnemyWorldScale()
         "Weekly, monthly, and all-time leaderboards",
         "Fixed personal rank row at the bottom of the board",
         "How-to-play onboarding screen",
-        "Published on Mackolik",
+        "Published on Maçkolik",
       ],
       technologies: [
         "Unity",
@@ -598,20 +606,20 @@ private void PinEnemyWorldScale()
       },
       media: [],
       links: [
-        // Add Mackolik / store URL when you have it:
-        // { label: "Play on Mackolik", url: "https://...", icon: "external" },
+        // Add Maçkolik / store URL when you have it:
+        // { label: "Play on Maçkolik", url: "https://...", icon: "external" },
       ],
     },
     "unity-solitaire-colors": {
       title: "Solitaire Colors",
       subtitle: "Mobile WebGL Port — Internship Project",
       description:
-        "Took a Solitaire game that was packed for Android, decoded and repaired the build, then adapted it to run as mobile WebGL. Added advertising and paid purchase flows so the web version could monetize like the native app.",
+        "Adapted an existing mobile Solitaire title for WebGL, resolving compatibility issues and integrating monetization systems including ads and in-app purchases.",
       role: "Unity Developer Intern",
       roleDescription:
-        "Handled decode/fix of the packed Android build, WebGL adaptation for mobile browsers, and placement of ads plus paid purchase integration.",
+        "Adapted an existing mobile Solitaire title for WebGL, resolving compatibility issues and integrating ads and in-app purchases.",
       features: [
-        "Decoded and fixed a packed Android build",
+        "Resolved WebGL compatibility issues",
         "Adapted gameplay for mobile WebGL",
         "Ad placement and integration",
         "Paid purchase / IAP wiring",
@@ -799,10 +807,26 @@ private void PinEnemyWorldScale()
             }
           >
             <p className="text-[#7C4DFF] mb-2">{game.subtitle}</p>
-            <h1 className="text-gray-800 mb-4">{game.title}</h1>
-            <p className="text-gray-600 max-w-3xl whitespace-pre-wrap">
-              {game.description}
-            </p>
+            <h1
+              className={`text-gray-800 ${game.credit ? "mb-2" : "mb-4"}`}
+            >
+              {game.title}
+            </h1>
+            {game.credit && (
+              <p
+                className="text-[#7C4DFF] mb-4"
+                style={{ fontWeight: 600 }}
+              >
+                {game.credit}
+              </p>
+            )}
+            <div className="max-w-3xl space-y-4">
+              {game.description.split(/\n\n+/).map((paragraph) => (
+                <p key={paragraph} className="text-gray-600">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
           </div>
           {game.heroVideo?.url ? (
             <AdaptiveVideoPlayer
@@ -810,6 +834,7 @@ private void PinEnemyWorldScale()
               title={game.heroVideo.title}
               thumbnail={game.heroVideo.thumbnail}
               preferredAspect={game.heroVideo.aspect || "portrait"}
+              loopMuted={game.heroVideo.loopMuted}
               style={heroMediaStyle}
             />
           ) : (

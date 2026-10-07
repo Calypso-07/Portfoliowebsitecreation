@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Gamepad2, Code, Palette, Joystick } from 'lucide-react';
+import { Gamepad2, Palette, Joystick, Box, Bot, Code } from 'lucide-react';
 
 export function SectionNavigator() {
   const sections = [
@@ -8,28 +8,42 @@ export function SectionNavigator() {
       title: 'Unreal Engine 5',
       icon: Gamepad2,
       gradient: 'from-[#A0E7E5] to-[#7DD3C0]',
-      description: 'Game development & interactive experiences',
+      description: 'Level Design, Gameplay Systems & Prototyping',
     },
     {
-      id: 'software-dev',
-      title: 'Software Development',
-      icon: Code,
-      gradient: 'from-[#D4BBDD] to-[#B794C4]',
-      description: 'Full-stack applications & web development',
+      id: 'unity',
+      title: 'Unity',
+      icon: Box,
+      gradient: 'from-[#7C4DFF] to-[#FFABCD]',
+      description: 'Shipped Games & Professional Development',
+    },
+    {
+      id: 'godot',
+      title: 'Godot Engine',
+      icon: Bot,
+      gradient: 'from-[#A0E7E5] to-[#7C4DFF]',
+      description: 'Game Jam Prototyping & Systems Design',
     },
     {
       id: 'artwork',
       title: 'Artwork',
       icon: Palette,
       gradient: 'from-[#FFD4E5] to-[#FFABCD]',
-      description: 'Digital art & creative design',
+      description: 'Illustration & Visual Storytelling',
     },
     {
       id: 'playdate',
       title: 'Playdate',
       icon: Joystick,
+      gradient: 'from-[#D4BBDD] to-[#B794C4]',
+      description: 'Experimental Game Design',
+    },
+    {
+      id: 'software-dev',
+      title: 'Software Development',
+      icon: Code,
       gradient: 'from-[#B4F8C8] to-[#8FE3B4]',
-      description: 'Handheld game development',
+      description: 'AI hackathon project',
     },
   ];
 

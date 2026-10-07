@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import { Play } from "lucide-react";
 import {
+  useEffect,
+  useRef,
   useState,
   type CSSProperties,
   type SyntheticEvent,
@@ -32,6 +34,8 @@ interface AdaptiveVideoPlayerProps {
   compact?: boolean;
   /** Ratio guess used until the file's real metadata loads */
   preferredAspect?: AspectHint;
+  /** Play immediately, muted, and loop, with no play button. */
+  loopMuted?: boolean;
   className?: string;
   style?: CSSProperties;
 }
@@ -42,10 +46,12 @@ export function AdaptiveVideoPlayer({
   thumbnail,
   compact = false,
   preferredAspect = "unknown",
+  loopMuted = false,
   className = "",
   style,
 }: AdaptiveVideoPlayerProps) {
-  const [playing, setPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(loopMuted);
   const [ratio, setRatio] = useState<number>(
     HINT_RATIO[preferredAspect],
   );
@@ -62,10 +68,21 @@ export function AdaptiveVideoPlayer({
     }
   };
 
-  // Chrome refuses unmuted autoplay without a strong user gesture, so fall
-  // back to a muted start instead of leaving the viewer on a frozen frame.
-  const startPlayback = (el: HTMLVideoElement | null) => {
+  useEffect(() => {
+    if (!loopMuted) return;
+    const el = videoRef.current;
     if (!el) return;
+    el.muted = true;
+    el.play().catch(() => {});
+  }, [loopMuted, url]);
+
+  // The click is the user gesture, so play() has to run here. A later effect
+  // is outside that gesture and Chrome will only allow a muted start.
+  const openWithSound = () => {
+    const el = videoRef.current;
+    setPlaying(true);
+    if (!el) return;
+    el.muted = false;
     el.play().catch(() => {
       el.muted = true;
       el.play().catch(() => {});
@@ -80,8 +97,8 @@ export function AdaptiveVideoPlayer({
         className={FRAME_CLASS}
         style={getFrameStyle(ratio, compact)}
       >
-        {playing ? (
-          embed ? (
+        {embed ? (
+          playing ? (
             <iframe
               src={url}
               title={title || "Video"}
@@ -90,23 +107,7 @@ export function AdaptiveVideoPlayer({
               allowFullScreen
             />
           ) : (
-            <video
-              ref={startPlayback}
-              src={url}
-              style={{
-                ...fill,
-                objectFit: "contain",
-                background: "#000",
-              }}
-              controls
-              autoPlay
-              playsInline
-              onLoadedMetadata={readMetadata}
-            />
-          )
-        ) : (
-          <>
-            {thumbnail ? (
+            thumbnail && (
               <img
                 src={thumbnail}
                 alt={title || "Video thumbnail"}
@@ -115,22 +116,28 @@ export function AdaptiveVideoPlayer({
                   objectFit: isPortrait ? "contain" : "cover",
                 }}
               />
-            ) : (
-              !embed && (
-                <video
-                  src={url}
-                  muted
-                  playsInline
-                  preload="metadata"
-                  style={{
-                    ...fill,
-                    objectFit: "contain",
-                    background: "rgba(0,0,0,0.08)",
-                  }}
-                  onLoadedMetadata={readMetadata}
-                />
-              )
-            )}
+            )
+          )
+        ) : (
+          <video
+            ref={videoRef}
+            src={url}
+            muted={loopMuted || !playing}
+            loop={loopMuted}
+            autoPlay={loopMuted}
+            controls={playing && !loopMuted}
+            playsInline
+            preload={loopMuted ? "auto" : "metadata"}
+            onLoadedMetadata={readMetadata}
+            style={{
+              ...fill,
+              objectFit: "contain",
+              background: loopMuted || playing ? "#000" : "rgba(0,0,0,0.08)",
+            }}
+          />
+        )}
+        {!playing && (
+          <>
             <div
               style={{
                 ...fill,
@@ -141,7 +148,7 @@ export function AdaptiveVideoPlayer({
               type="button"
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.96 }}
-              onClick={() => setPlaying(true)}
+              onClick={embed ? () => setPlaying(true) : openWithSound}
               aria-label={
                 title ? `Play ${title}` : "Play video"
               }

@@ -16,11 +16,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
     <>
       <AboutSection onNavigate={onNavigate} />
       <UE5Section onNavigate={onNavigate} />
-      <GodotSection onNavigate={onNavigate} />
       <UnitySection onNavigate={onNavigate} />
+      <GodotSection onNavigate={onNavigate} />
       <PlaydateSection />
-      <SoftwareDevSection />
       <ArtworkSection />
+      <SoftwareDevSection />
       <Footer />
     </>
   );

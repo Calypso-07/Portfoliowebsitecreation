@@ -18,7 +18,7 @@ export function UnitySection({
       id: "unity-runnerguy",
       title: "Runner Guy",
       description:
-        "Inherited an undocumented, decompiled endless-runner codebase and productionized it — systems debugging, Unity 6 migration, cold-start optimization (~6s → ~1s), and a Pixidus ship.",
+        "Took ownership of a legacy Unity codebase for a live mobile game, debugging production issues and implementing new gameplay features. I also reduced loading time from approximately 6 seconds to 1 second by optimizing object pooling and gameplay initialization, while resolving WebGL, localization, UI, and progression issues.",
       videoUrl: "/videos/runnerguy-video.mp4",
       imageUrl: "",
       thumbnailUrl: "",
@@ -29,18 +29,18 @@ export function UnitySection({
       id: "unity-trivia-football",
       title: "Trivia Football",
       description:
-        "Football-themed trivia game with CSV-driven questions, four lifelines, three difficulty stages, and a dynamic weekly / monthly / all-time leaderboard. Built end-to-end and shipped on Mackolik.",
+        "A football trivia game I designed and developed from scratch in Unity, including gameplay, UI, four distinct lifelines, progression, and overall game flow. The game was shipped on Maçkolik, a leading Turkish sports platform reaching 8M+ monthly mobile users.",
       videoUrl: "/videos/trivia-video.mp4",
       imageUrl: "",
       thumbnailUrl: "",
       portraitMedia: true,
-      tags: ["Unity", "C#", "CSV", "Leaderboard", "Mackolik"],
+      tags: ["Unity", "C#", "CSV", "Leaderboard", "Maçkolik"],
     },
     {
       id: "unity-solitaire-colors",
       title: "Solitaire Colors",
       description:
-        "Took a packed Android Solitaire build, decoded and fixed it, then adapted it for mobile WebGL. Wired up ads and in-app purchases for monetization.",
+        "Adapted an existing mobile Solitaire title for WebGL, resolving compatibility issues and integrating monetization systems including ads and in-app purchases.",
       videoUrl: "/videos/Solitaire.mp4",
       imageUrl: "",
       thumbnailUrl: "",
@@ -62,7 +62,7 @@ export function UnitySection({
       id: "unity-shooter",
       title: "Flap!",
       description:
-        "A 2D game built in Unity. Features Logic Management, custom Pixel art, and a custom UI system. Fully playable in the browser via WebGL.",
+        "A browser-playable 2D Unity game featuring custom pixel art, gameplay logic, and a custom UI system, exported through WebGL.",
       videoUrl: "",
       imageUrl: "",
       thumbnailUrl: flapCover,
@@ -87,9 +87,12 @@ export function UnitySection({
             Unity Development
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Internship shipping work and personal projects —
-            UI systems, monetization, localization, and
-            production-ready Unity / C# builds.
+            Professional Unity development experience across six
+            shipped mobile titles, including runner, puzzle,
+            card, and trivia games. My work has included
+            gameplay systems, UI, progression, localization,
+            WebGL compatibility, debugging, optimization, and
+            live production in C#.
           </p>
         </motion.div>
 

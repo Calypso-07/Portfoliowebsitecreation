@@ -21,7 +21,7 @@ export function GodotSection({
       id: "godot-platformer",
       title: "BOT.NET - Best 2D Visual Identity and People's Choice Award in Triangle Game Jam",
       description:
-        "B0T.NET is a hacker-themed clicker / tower defense game, where you are fighting off a virus continously diving deeper into your file system. Click on the viruses to gain RAM, and use the RAM to buy towers!",
+        "An award-winning hacker-themed clicker and tower-defense game created for Triangle Game Jam. I contributed across the full development cycle and programmed the towers, firewall defense systems, and shop/monetization mechanics. BOT.NET won both the People’s Choice Award and Best 2D Visual Identity.",
       videoUrl: "",
       thumbnailUrl: godotCover,
     },
@@ -42,9 +42,9 @@ export function GodotSection({
         >
           <h2 className="text-[#7C4DFF] mb-4">Godot Engine</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Exploring open-source game development with Godot.
-            Focusing on 2D mechanics, GDScript, and lightweight
-            web exports.
+            My Godot work focuses on rapid gameplay prototyping,
+            systems design, and 2D mechanics using GDScript,
+            including award-winning game jam development.
           </p>
         </motion.div>
 

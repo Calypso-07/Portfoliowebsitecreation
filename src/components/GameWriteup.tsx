@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import type { CSSProperties } from "react";
+import { AdaptiveVideoPlayer } from "./AdaptiveVideoPlayer";
 
 // The site ships a frozen, precompiled Tailwind stylesheet whose heading rules
 // only apply under a fragile :where(:not(:has(...))) selector, so headings and
@@ -10,12 +11,26 @@ export interface WriteupBullet {
   text: string;
 }
 
+export interface WriteupMedia {
+  url: string;
+  title?: string;
+  alt?: string;
+  /** Play immediately, muted, and loop. */
+  loopMuted?: boolean;
+}
+
 export interface WriteupBlock {
   title?: string;
+  /** Short accent line under the section title. */
+  kicker?: string;
   body?: string[];
   bullets?: (string | WriteupBullet)[];
   /** Paragraphs that close the block, rendered after the bullet list. */
   after?: string[];
+  /** Shown above the body. Omitted when url is empty. */
+  video?: WriteupMedia;
+  /** Shown below the body, side by side. Entries with an empty url are omitted. */
+  images?: WriteupMedia[];
   blocks?: WriteupBlock[];
 }
 
@@ -41,12 +56,25 @@ const subTitleStyle: CSSProperties = {
   marginBottom: "0.75rem",
 };
 
+const kickerStyle: CSSProperties = {
+  fontSize: "1.05rem",
+  fontWeight: 500,
+  lineHeight: 1.5,
+  color: "#7C4DFF",
+  marginTop: "-0.25rem",
+  marginBottom: "1.25rem",
+};
+
 const bodyStyle: CSSProperties = {
   fontSize: "1rem",
   lineHeight: 1.75,
   color: "#4b5563",
   marginBottom: "1rem",
 };
+
+function visibleImages(images?: WriteupMedia[]) {
+  return images?.filter((image) => image.url) ?? [];
+}
 
 function BulletList({
   bullets,
@@ -94,8 +122,21 @@ function BulletList({
 }
 
 function BlockBody({ block }: { block: WriteupBlock }) {
+  const images = visibleImages(block.images);
+
   return (
     <>
+      {block.kicker && <p style={kickerStyle}>{block.kicker}</p>}
+      {block.video?.url && (
+        <div style={{ marginBottom: "1.25rem" }}>
+          <AdaptiveVideoPlayer
+            url={block.video.url}
+            title={block.video.title}
+            preferredAspect="landscape"
+            loopMuted={block.video.loopMuted}
+          />
+        </div>
+      )}
       {block.body?.map((paragraph, i) => (
         <p key={i} style={bodyStyle}>
           {paragraph}
@@ -109,13 +150,50 @@ function BlockBody({ block }: { block: WriteupBlock }) {
           {paragraph}
         </p>
       ))}
+      {images.length > 0 && (
+        <div
+          className="grid md:grid-cols-2 gap-4"
+          style={{ marginTop: "0.5rem", alignItems: "center" }}
+        >
+          {images.map((image, i) => (
+            <div
+              key={i}
+              style={{
+                aspectRatio: "16 / 9",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                minWidth: 0,
+              }}
+            >
+              <img
+                src={image.url}
+                alt={image.alt || image.title || ""}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  objectFit: "contain",
+                  objectPosition: "center",
+                  borderRadius: "1rem",
+                  display: "block",
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }
 
 function hasOwnContent(block: WriteupBlock) {
   return Boolean(
-    block.body?.length || block.bullets?.length || block.after?.length,
+    block.kicker ||
+      block.video?.url ||
+      block.body?.length ||
+      block.bullets?.length ||
+      block.after?.length ||
+      visibleImages(block.images).length,
   );
 }
 

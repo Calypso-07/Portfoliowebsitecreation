@@ -23,42 +23,42 @@ export function AboutSection({
       title: "Unreal Engine 5",
       icon: Gamepad2,
       gradient: "from-[#A0E7E5] to-[#7DD3C0]",
-      description: "Game development & interactive experiences",
-    },
-    {
-      id: "godot",
-      title: "Godot Engine",
-      icon: Bot,
-      gradient: "from-[#A0E7E5] to-[#7C4DFF]",
-      description: "2D game development & open source tools",
+      description: "Level Design, Gameplay Systems & Prototyping",
     },
     {
       id: "unity",
       title: "Unity",
       icon: Box,
       gradient: "from-[#7C4DFF] to-[#FFABCD]",
-      description: "2D applications & C# scripting",
+      description: "Shipped Games & Professional Development",
     },
     {
-      id: "playdate",
-      title: "Playdate",
-      icon: Joystick,
-      gradient: "from-[#D4BBDD] to-[#B794C4]",
-      description: "Handheld game development",
-    },
-    {
-      id: "software-dev",
-      title: "Software Development",
-      icon: Code,
-      gradient: "from-[#B4F8C8] to-[#8FE3B4]",
-      description: "Full-stack applications & web development",
+      id: "godot",
+      title: "Godot Engine",
+      icon: Bot,
+      gradient: "from-[#A0E7E5] to-[#7C4DFF]",
+      description: "Game Jam Prototyping & Systems Design",
     },
     {
       id: "artwork",
       title: "Artwork",
       icon: Palette,
       gradient: "from-[#FFD4E5] to-[#FFABCD]",
-      description: "Digital art & creative design",
+      description: "Illustration & Visual Storytelling",
+    },
+    {
+      id: "playdate",
+      title: "Playdate",
+      icon: Joystick,
+      gradient: "from-[#D4BBDD] to-[#B794C4]",
+      description: "Experimental Game Design",
+    },
+    {
+      id: "software-dev",
+      title: "Software Development",
+      icon: Code,
+      gradient: "from-[#B4F8C8] to-[#8FE3B4]",
+      description: "AI hackathon project",
     },
   ];
 
@@ -103,17 +103,17 @@ export function AboutSection({
               viewport={{ once: true }}
             >
               <p>
-                I am an aspiring gameplay programmer currently
-                studying at Duke University Game Development
-                Design and Innovation Master's Program. I have
-                experience in programming with Python and C++,
-                and interested in AI implementations on games,
-                with knowledge on Machine Learning and Neural
-                Networks. I use Unreal Engine 5 and improving
-                each day with blueprints. Right now, I am
-                looking for internship opportunities to gain
-                hands on experience and to get to know the game
-                industry.
+                I'm a Level Designer and Game Designer pursuing
+                an MEng in Game Design, Development & Innovation
+                at Duke University. I design player-focused
+                spaces, gameplay systems, and puzzles, combining
+                spatial thinking with hands-on implementation in
+                Unreal Engine 5 and Unity. My background in Civil
+                Engineering shapes how I think about scale,
+                structure, and player movement, while my
+                development experience allows me to take ideas
+                from early blockout to playable, tested
+                experiences.
               </p>
             </motion.div>
 
@@ -169,20 +169,30 @@ export function AboutSection({
             Explore My Work
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sections.map((section, index) => {
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.1 } },
+            }}
+          >
+            {sections.map((section) => {
               const Icon = section.icon;
               return (
                 <motion.div
                   key={section.id}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: index * 0.1,
+                  variants={{
+                    hidden: { opacity: 0, y: 50 },
+                    show: { opacity: 1, y: 0 },
                   }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -10 }}
+                  transition={{ duration: 0.6 }}
+                  whileHover={{
+                    y: -10,
+                    transition: { duration: 0.35, delay: 0 },
+                  }}
                   onClick={() => scrollToSection(section.id)}
                   className="cursor-pointer h-full"
                 >
@@ -207,7 +217,7 @@ export function AboutSection({
                 </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

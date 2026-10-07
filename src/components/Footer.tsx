@@ -14,9 +14,11 @@ export function Footer() {
         >
           <h3 className="mb-4">Let's Connect</h3>
           <p className="text-white/90 max-w-2xl mx-auto mb-8">
-            I'm always open to discussing new opportunities,
-            creative projects, or potential collaborations. Feel
-            free to reach out!
+            I’m currently seeking Level Design, Game Design, and
+            Technical Design opportunities where I can combine
+            spatial design, gameplay systems, and hands-on
+            implementation. Feel free to reach out if you’d like
+            to discuss my work or a potential role.
           </p>
 
           <div className="flex justify-center gap-6">
