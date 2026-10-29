@@ -5,6 +5,7 @@ import { UnitySection } from "./UnitySection";
 import { ArtworkSection } from "./ArtworkSection";
 import { PlaydateSection } from "./PlaydateSection";
 import { SoftwareDevSection } from "./SoftwareDevSection";
+import { ToolsSection } from "./ToolsSection";
 import { Footer } from "./Footer";
 
 interface HomePageProps {
@@ -21,6 +22,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
       <PlaydateSection />
       <ArtworkSection />
       <SoftwareDevSection />
+      <ToolsSection onNavigate={onNavigate} />
       <Footer />
     </>
   );

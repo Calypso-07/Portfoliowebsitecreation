@@ -8,6 +8,7 @@ import {
   Joystick,
   Bot,
   Box,
+  Wrench,
 } from "lucide-react";
 
 interface AboutSectionProps {
@@ -59,6 +60,14 @@ export function AboutSection({
       icon: Code,
       gradient: "from-[#B4F8C8] to-[#8FE3B4]",
       description: "AI hackathon project",
+    },
+    {
+      id: "tools",
+      title: "Tools & Technical Design",
+      icon: Wrench,
+      gradient: "from-[#7C4DFF] to-[#A0E7E5]",
+      description: "Internal tools, pipeline, and workflow automation",
+      page: "tools",
     },
   ];
 
@@ -193,7 +202,11 @@ export function AboutSection({
                     y: -10,
                     transition: { duration: 0.35, delay: 0 },
                   }}
-                  onClick={() => scrollToSection(section.id)}
+                  onClick={() =>
+                    section.page
+                      ? onNavigate(section.page)
+                      : scrollToSection(section.id)
+                  }
                   className="cursor-pointer h-full"
                 >
                   <div className="relative group h-full">

@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Gamepad2, Palette, Joystick, Box, Bot, Code } from 'lucide-react';
+import { Gamepad2, Palette, Joystick, Box, Bot, Code, Wrench } from 'lucide-react';
 
 export function SectionNavigator() {
   const sections = [
@@ -44,6 +44,13 @@ export function SectionNavigator() {
       icon: Code,
       gradient: 'from-[#B4F8C8] to-[#8FE3B4]',
       description: 'AI hackathon project',
+    },
+    {
+      id: 'tools',
+      title: 'Tools & Technical Design',
+      icon: Wrench,
+      gradient: 'from-[#7C4DFF] to-[#A0E7E5]',
+      description: 'Internal tools, pipeline, and workflow automation',
     },
   ];
 

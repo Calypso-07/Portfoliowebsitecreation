@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Navigation } from './components/Navigation';
 import { HomePage } from './components/HomePage';
 import { ResumePage } from './components/ResumePage';
+import { ToolsPage } from './components/ToolsPage';
 import { GameDetailPage } from './components/GameDetailPage';
 
 export default function App() {
@@ -42,6 +43,7 @@ export default function App() {
         transition={{ duration: 0.5 }}
       >
         {currentPage === 'home' && <HomePage onNavigate={handleNavigate} />}
+        {currentPage === 'tools' && <ToolsPage />}
         {currentPage === 'resume' && <ResumePage />}
         {isGameDetail && gameId && (
           <GameDetailPage gameId={gameId} onNavigate={handleNavigate} />
