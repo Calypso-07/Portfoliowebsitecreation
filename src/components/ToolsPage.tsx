@@ -35,23 +35,23 @@ const metaStyle: CSSProperties = {
 
 const textureImages = [
   {
-    url: "/images/texture-checker-ui.jpg",
+    url: "/images/texture-checker-ui.png",
     title: "Tool interface integrated within the Unreal Editor.",
   },
   {
-    url: "/images/texture-checker-fail-state.jpg",
+    url: "/images/texture-checker-fail-state.png",
     title: "Identifying incorrect compression and sRGB settings.",
   },
   {
-    url: "/images/texture-checker-fix-dialog.jpg",
+    url: "/images/texture-checker-fix-dialog.png",
     title: "Safety confirmation before applying batch settings.",
   },
   {
-    url: "/images/texture-checker-pass-state.jpg",
+    url: "/images/texture-checker-pass-state.png",
     title: "Automatic rescan verifying the fixes.",
   },
   {
-    url: "/images/texture-checker-verification.jpg",
+    url: "/images/texture-checker-verification.png",
     title: "Verifying the applied settings directly in Unreal's Texture Editor.",
   },
 ];
@@ -125,12 +125,13 @@ export function ToolsPage() {
           </p>
         </motion.div>
 
-        <div className="space-y-12">
+        <div className="tools-project-list tools-project-list--details">
           <motion.article
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
             className="bg-white rounded-3xl p-8 shadow-xl"
+            style={{ order: 2 }}
           >
             <h2 style={titleStyle}>Unreal Texture Health Checker</h2>
             <p style={{ ...metaStyle, color: "#7C4DFF", fontWeight: 600 }}>
@@ -203,70 +204,118 @@ export function ToolsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="bg-white rounded-3xl p-8 shadow-xl"
+            style={{ order: 1 }}
           >
-            <div
-              className="flex flex-wrap items-center gap-3"
-              style={{ marginBottom: "0.35rem" }}
-            >
-              <h2 style={{ ...titleStyle, marginBottom: 0 }}>
-                Procedural Platform Generator & Reachability Checker
-              </h2>
-              <span className="px-3 py-1 bg-[#7C4DFF]/10 text-[#7C4DFF] rounded-full text-sm">
-                WIP
-              </span>
-            </div>
+            <h2 style={titleStyle}>
+              Procedural Platform Generator & Reachability Checker
+            </h2>
             <p style={{ ...metaStyle, color: "#7C4DFF", fontWeight: 600 }}>
-              Maya 2026.2, Python, PySide (Codex-Assisted)
+              Maya 2026.2 | Python | PySide6 | Applied Math | Graph-Based
+              Reachability | Technical Level Design
             </p>
             <p style={{ ...metaStyle, marginBottom: "1rem" }}>
-              Target Users: Level Designers
+              <strong>Target Users:</strong> Level Designers
             </p>
             <TechTags
-              tags={["Maya 2026", "Python", "PySide", "Level Design Tools"]}
+              tags={[
+                "Maya 2026.2",
+                "Python",
+                "PySide6",
+                "Applied Math",
+                "Graph-Based Reachability",
+                "Technical Level Design",
+              ]}
             />
 
             <h3 style={headingStyle}>Overview</h3>
             <p style={bodyStyle}>
-              Blockout iteration in 3D platformers often requires tedious
-              manual placement and constant testing to ensure platforms are
-              jumpable. To solve this for my capstone project, I am
-              developing a procedural platform generator in Maya. This tool
-              allows level designers to quickly generate platform layouts
-              and automatically evaluates pairwise jump distances using
-              applied math, removing the guesswork from blockouts.
+              Creating and iterating on platforming levels often involves
+              manually placing platforms, adjusting distances, and checking
+              whether players can reach different areas. I developed a Python
+              tool for Maya that streamlines this process by combining
+              procedural platform generation with automated reachability
+              analysis.
             </p>
-
-            <h3 style={headingStyle}>Current Implementation</h3>
-            <FeatureList
-              items={[
-                {
-                  label: "Custom UI",
-                  text: "Developed a PySide window for inputting platform dimensions and XYZ offsets.",
-                },
-                {
-                  label: "Procedural Generation",
-                  text: "Automates Maya's polygon cube commands to place new platforms relative to the previous one.",
-                },
-                {
-                  label: "Spatial Measurement",
-                  text: "Implemented pairwise bounding-box measurement to calculate the exact horizontal gap (XZ) and vertical height difference (Y) between platforms.",
-                },
-              ]}
-            />
-
-            <h3 style={headingStyle}>Development Roadmap (WIP)</h3>
             <p style={bodyStyle}>
-              The next iteration will feature full graph-based reachability
-              analysis, automatically highlighting unreachable platforms
-              based on user-defined maximum jump limits, and supporting FBX
-              export directly to Unreal Engine.
+              The tool allows level designers to quickly prototype platform
+              layouts, define character movement limits, and identify
+              unreachable areas without manually checking every possible jump.
             </p>
 
             <AdaptiveVideoPlayer
               url="/videos/platform-generator-demo.mp4"
-              title="Demo: Generating procedural blockout platforms and measuring gaps in Maya."
+              title="Demo: Procedural platform generation and graph-based reachability analysis in Maya."
               preferredAspect="landscape"
+              style={{ marginBottom: "1.5rem" }}
             />
+
+            <h3 style={headingStyle}>Key Features</h3>
+            <FeatureList
+              items={[
+                {
+                  label: "Procedural Platform Generation",
+                  text: "Creates rectangular platforms using customizable dimensions and XYZ offsets, positioning each new platform relative to the previous one.",
+                },
+                {
+                  label: "Custom PySide6 Interface",
+                  text: "Provides controls for platform generation, starting platform selection, movement limits, and reachability analysis.",
+                },
+                {
+                  label: "Spatial Analysis",
+                  text: "Uses world-space bounding boxes and Euclidean distance calculations to measure horizontal gaps and vertical differences between platforms.",
+                },
+                {
+                  label: "Graph-Based Reachability",
+                  text: "Builds a directed graph of possible jumps and uses breadth-first search (BFS) to determine which platforms are reachable from the selected starting point, including through intermediate platforms.",
+                },
+                {
+                  label: "Visual Feedback",
+                  text: "Highlights reachable platforms in green and unreachable platforms in red directly in Maya, with a detailed list of results.",
+                },
+                {
+                  label: "Scene Integration",
+                  text: "Detects previously generated platforms, supports layout adjustments and repeated analysis, and allows users to restore original materials.",
+                },
+              ]}
+            />
+
+            <h3 style={headingStyle}>Technical Approach</h3>
+            <p style={bodyStyle}>
+              I separated the Maya interface and scene operations from the
+              reachability calculations to keep the tool organized and the
+              algorithm independently testable.
+            </p>
+            <p style={bodyStyle}>
+              The tool calculates platform-to-platform connections using
+              configurable horizontal jump distance, maximum rise, and maximum
+              drop limits. Since jumps can be directional, a platform may be
+              reachable from above without being reachable from below.
+            </p>
+            <p style={bodyStyle}>
+              Rather than flagging every impossible direct jump, the algorithm
+              checks whether each platform can be reached through any valid
+              sequence of connections. This helps level designers identify
+              actual gaps in level progression.
+            </p>
+            <p style={bodyStyle}>
+              The system is intended for early-stage blockouts and uses
+              simplified movement constraints rather than full character
+              physics simulation.
+            </p>
+
+            <h3 style={headingStyle}>Development & Testing</h3>
+            <p style={bodyStyle}>
+              I tested the tool in Maya 2026.2 using multiple platform layouts,
+              including connected sequences, disconnected platforms,
+              overlapping platforms, and invalid inputs. The tool successfully
+              identified unreachable sections and updated its results when
+              platform positions or starting points changed.
+            </p>
+            <p style={bodyStyle}>
+              <strong>Development:</strong> Python implementation and debugging
+              with ChatGPT assistance.
+            </p>
+
           </motion.article>
         </div>
       </div>

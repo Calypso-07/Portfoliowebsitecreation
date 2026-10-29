@@ -29,21 +29,23 @@ export function ToolsSection({ onNavigate }: ToolsSectionProps) {
           </p>
         </motion.div>
 
-        <div className="space-y-16">
+        <div className="tools-project-list">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             className="bg-white rounded-3xl overflow-hidden shadow-xl"
+            style={{ order: 2 }}
           >
             <div className="grid md:grid-cols-2 gap-0">
               <div className="p-6 flex items-center">
                 <AdaptiveImage
-                  url="/images/texture-checker-ui.jpg"
-                  alt="Texture Health Checker interface in Unreal Editor"
+                  url="/images/texture-checker-fix-dialog.png"
+                  alt="Texture Health Checker batch-fix confirmation dialog"
                   preferredAspect="landscape"
                   compact
+                  className="w-full"
                 />
               </div>
               <div className="p-8 flex flex-col justify-center">
@@ -91,35 +93,33 @@ export function ToolsSection({ onNavigate }: ToolsSectionProps) {
             transition={{ duration: 0.8, delay: 0.1 }}
             viewport={{ once: true }}
             className="bg-white rounded-3xl overflow-hidden shadow-xl"
+            style={{ order: 1 }}
           >
             <div className="grid md:grid-cols-2 gap-0">
               <div className="p-6 flex items-center">
                 <AdaptiveVideoPlayer
                   url="/videos/platform-generator-demo.mp4"
-                  title="Procedural platform generator demo"
+                  title="Procedural platform generation and reachability analysis demo"
                   preferredAspect="landscape"
                   compact
+                  className="w-full"
                 />
               </div>
               <div className="p-8 flex flex-col justify-center">
-                <div className="flex flex-wrap items-center gap-3 mb-1">
-                  <h3 className="text-gray-800">
-                    Procedural Platform Generator
-                  </h3>
-                  <span className="px-3 py-1 bg-[#7C4DFF]/10 text-[#7C4DFF] rounded-full text-sm">
-                    WIP
-                  </span>
-                </div>
+                <h3 className="text-gray-800 mb-1">
+                  Procedural Platform Generator & Reachability Checker
+                </h3>
                 <p
                   className="text-[#7C4DFF] mb-4"
                   style={{ fontWeight: 600 }}
                 >
-                  Maya 2026.2, Python, PySide
+                  Maya 2026.2, Python, PySide6, Applied Math
                 </p>
                 <p className="text-gray-600 mb-4">
-                  A Maya tool for level designers that generates platform
-                  blockouts and measures jump gaps with applied math, built
-                  for my capstone project.
+                  A Maya tool that combines procedural platform generation
+                  with graph-based reachability analysis, helping level
+                  designers identify unreachable areas during early blockout
+                  iteration.
                 </p>
                 <motion.button
                   onClick={() => onNavigate("tools")}
@@ -130,16 +130,19 @@ export function ToolsSection({ onNavigate }: ToolsSectionProps) {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </motion.button>
                 <div className="flex flex-wrap gap-2">
-                  {["Maya 2026", "Python", "PySide", "Level Design Tools"].map(
-                    (tag) => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1 bg-[#A0E7E5]/20 text-[#2D8B8A] rounded-full text-sm"
-                      >
-                        {tag}
-                      </span>
-                    ),
-                  )}
+                  {[
+                    "Maya 2026.2",
+                    "Python",
+                    "PySide6",
+                    "Graph-Based Reachability",
+                  ].map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 bg-[#A0E7E5]/20 text-[#2D8B8A] rounded-full text-sm"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
